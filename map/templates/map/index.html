@@ -1,0 +1,47 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+{% block content %}
+<link href="{% static "map/style.css" %}" rel="stylesheet"  type="text/css"/>
+<div id="jscurtain">Включите JavaScript</div>
+<script>
+document.getElementById('jscurtain').style.display = 'none';
+var rooms_info = {
+{% for room in all_rooms %}
+	"{{ room.map_id }}": ["{{ room.title }}", {{ room.rtype }}],
+{% endfor %}
+};
+</script>
+<script src="{% static "map/engine.js" %}" type="text/javascript"></script>
+
+<div id="loader">
+	<div>
+		<img  src="{% static "map/load.png" %}" alt="" />
+	</div>
+</div>
+
+<div id="btns_floor" class="fbuttons falign-right">
+		<div id="btn_up">▲</div>
+		<div id="floor_numb">2</div>
+		<div id="floor_txt">этаж</div>
+		<div id="btn_down">▼</div>
+</div>
+<div id="btns_zoom" class="fbuttons falign-left">
+		<div id="zoom_in">➕</div>
+		<div id="zoom_out">➖</div>
+</div>
+
+<div id="field" style="background: url('{% static "map/backgroundnet.jpg" %}')" >
+	<div id="zoom-field" >
+		<div id="map-container">
+			<object id="floor0" data="{% static "map/floors/floor0.svg" %}" type="image/svg+xml"></object>
+			<object id="floor1" data="{% static "map/floors/floor1.svg" %}" type="image/svg+xml">
+				<p>Ваш браузер не поддерживает карту</p>
+			</object>
+			<object id="floor2" data="{% static "map/floors/floor2.svg" %}" type="image/svg+xml"></object>
+			<object id="floor3" data="{% static "map/floors/floor3.svg" %}" type="image/svg+xml"></object>
+			<object id="floor4" data="{% static "map/floors/floor4.svg" %}" type="image/svg+xml"></object>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

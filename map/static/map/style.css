@@ -1,0 +1,143 @@
+#jscurtain {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	z-index: 10000;
+	text-align: center;
+	padding-top: 2em;
+	font-size: 2em;
+}
+
+.room_cafe {
+	fill:#dccc00;
+	fill-opacity:1; 
+	fill-rule:evenodd; 
+} 
+.room_cafe:hover {
+	fill:#dccc00;
+} 
+
+.room_admin {
+	fill:#cc9900;
+	fill-opacity:1; 
+	fill-rule:evenodd; 
+} 
+.room_admin:hover {
+	fill:#cc9900;
+} 
+
+.room_public {
+	fill:#009900;
+	fill-opacity:1;
+	fill-rule:evenodd;
+} 
+.room_public:hover { 
+	fill:#00CC00;
+} 
+
+#field {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+}
+
+#zoom-field {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	-webkit-transition: transform 0.5s ease-in-out;
+    -moz-transition:transform 0.5s ease-in-out;
+    -ms-transition:transform 0.5s ease-in-out;
+}
+
+#map-container {
+	position: fixed;
+	height: 100%;
+	width: 100%;
+}
+
+#map-container object {
+	position: absolute;
+}
+
+.lable-container div {
+	position: absolute;
+	display: table;
+	color: #eee;
+	font-size: 1em;
+	font-weight: 600;
+	text-align: center;
+}
+
+.lable-container div span {
+	display: table-cell;
+	vertical-align: middle;
+	word-break: keep-all;
+	white-space: normal;
+	line-height: normal;
+}
+
+.fbuttons, #map-container * {
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Chrome/Safari/Opera */
+	-khtml-user-select: none; /* Konqueror */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none;
+	cursor: default;
+}
+
+#panel {
+	position: absolute;
+}
+
+#loader {
+	width: 100%;
+	height: 100%;
+	background-color: white;	
+	position: fixed;
+	display: table;
+	text-align: center;
+	z-index: 2;
+}
+
+#loader div {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.fbuttons {
+	z-index: 1;
+	position: fixed;
+	width: 1.5em;
+	font-size: 1.5em;
+	text-align: center;
+	background-color: #f0f6f9;/*#e0e0e0;*/
+	border-radius: 1em;
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	-khtml-border-radius: 2em;
+	border: 2px solid #464a4f;
+	padding: 0px; 
+}
+
+.falign-right {
+	right: 0.5em;
+}
+
+.falign-left {
+	left: 0.5em;
+}
+
+#floor_txt {
+	font-size: 0.4em;
+	margin-top: -1em;
+}
+
+	@media screen and (max-width: 480px) {
+		.fbuttons {
+			font-size: 1em;
+			border: 1px solid black;
+		}
+	}

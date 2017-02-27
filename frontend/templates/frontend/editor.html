@@ -1,0 +1,139 @@
+{% extends "frontend/base.html" %}
+{% load static %}
+{% block content %}
+<script src="{% static "frontend/js/editor.js" %}" type="text/javascript"></script>
+<div id="jscurtain">Включите JavaScript</div>
+<script>
+document.getElementById('jscurtain').style.display = 'none';
+var schedule_full = {
+	{% for lection in schedule_full %}
+		{{ lection.id }}: {	
+			'rec_id': {{ lection.id }},
+			'id_hash': '{{ lection.id_hash }}',
+			'name'	: '{{ lection.name }}',
+			'day' 	: '{{ lection.day }}',
+			'numb'	: '{{ lection.numb }}',
+			'teacher': '{{ lection.teacher }}',
+			'week'	: '{{ lection.week }}',
+			'room'	: '{{ lection.room }}',
+			'hide'	: '{{ lection.hide }}',
+			'is_user': '{{ lection.is_user }}',
+		},
+	{% endfor %}
+}
+</script>
+<section id="main" class="wrapper">
+<div class="inner">
+<div class="table-wrapper">
+<div class="toolbar">
+	<div>
+		<span class="title">РЕЖИМ</span>
+		<table class="panel mode">
+		<tbody>
+			<tr>
+				<td id="mode_base" class="{% if mode.base %}panel_on{% else %}panel_off{% endif %}">официальное расписание</td>
+				<td id="mode_user" class="{% if mode.user %}panel_on{% else %}panel_off{% endif %}">мое расписание</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<div>
+		<span class="title">ВИД</span>
+		<table class="panel style">
+		<tbody>
+			<tr>
+				<td id="view_teacher" class="{% if view.teacher %}panel_on{% else %}panel_off{% endif %}">преподаватели</td>
+				<td id="view_weekroom" class="{% if view.weekroom %}panel_on{% else %}panel_off{% endif %}">недели и аудитории</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+	<div>
+		<span class="title">УВЕДОМЛЕНИЯ</span>
+		<table class="panel notifications">
+		<tbody>
+			<tr>
+				<td id="notice_today" class="{% if user_notice.today %}panel_on{% else %}panel_off{% endif %}">Пары сегодня</td>
+				<td id="notice_tomorrow" class="{% if user_notice.tomorrow %}panel_on{% else %}panel_off{% endif %}">Пары завтра</td>
+				<td id="notice_week" class="{% if user_notice.week %}panel_on{% else %}panel_off{% endif %}">На неделю</td>
+				<td id="notice_map" class="{% if user_notice.map %}panel_on{% else %}panel_off{% endif %}">Первая пара</td>
+			</tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+<div class="my_form" id="form_edit">
+	<h4 id="title">Редактирование</h4>
+	<div id="close"><i class="fa fa-times" aria-hidden="true"></i></div>
+	<form method="post" action="{% url "editor" %}">
+		{% csrf_token %}
+		<input type="text" name="name" id="name" value="" placeholder="предмет" />
+		<input type="hidden" name="rec_id" id="rec_id" value="" />
+		<input type="hidden" name="id_hash" id="id_hash" value="" />
+		<input type="hidden" name="day" id="day" value="" />
+		<input type="hidden" name="numb" id="numb" value=""/>
+		<input type="text" name="teacher" id="teacher" value="" placeholder="преподаватель" />
+		<input type="text" name="week" id="week" value="" placeholder="недели ('I', 'II', '2,4')" />
+		<input type="text" name="room" id="room" value="" placeholder="аудитория" />
+		<div id="input_hide">
+			<input type="checkbox" name="hide" id="hide" checked="">
+			<label for="hide" id="hide_label">не показывать</label>
+		</div>
+		<div id="input_delete">
+			<input type="checkbox" name="delete" id="delete" checked="">
+			<label for="delete">удалить</label>
+		</div>
+		<input type="submit" value="сохранить" />
+	</form>
+</div>
+<table class="schedule alt align-center">
+<thead>
+	<tr>
+		<th></th>
+		<th></th>
+		<th>Понедельник</th>
+		<th>Вторник</th>
+		<th>Среда</th>
+		<th>Четверг</th>
+		<th>Пятница</th>
+		<th>Суббота</th>
+	</tr>
+</thead>
+<tbody>
+{% for numb, row in table_content.items %}
+	<tr>
+		<td class="left">{{ row.liter }}</td>
+		<td class="left">{{ row.time }}</td>
+		{% for day, event_list in row.events.items %}
+			<td class="events_cell">
+			{% for event in event_list %}
+			<div id="{{ event.id }}" class="event" data-hide="{{ event.hide }}" data-isuser="{{ event.is_user }}">
+				{% if mode.user %}
+					<div class="show"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+				{% endif %}
+				<span class="event_name">{{ event.name }}<br></span>
+				{% if view.teacher %}
+					<span class="event_teacher">{{ event.teacher }}<br></span>
+				{% endif %}
+				{% if view.weekroom %}
+					<div class="line event_weekroom">&nbsp;
+						<span class="event_week">{{ event.week }}</span>
+						<span class="event_room">{{ event.room }}</span>
+					</div>
+				{% endif %}
+			</div>
+			{% endfor %}
+			{% if mode.user %}
+				<div class="new_event" data-day="{{ day }}" data-numb="{{ numb }}">+</div>
+			{% endif %}
+			</td>
+		{% endfor %}
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE HTML>
+<!--
+	Intensify by TEMPLATED
+	templated.co @templatedco
+	Released for free under the Creative Commons Attribution 3.0 license (templated.co/license)
+-->
+<html>
+	<head>
+		<title>РасписаниеМИРЭА</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="{% static "frontend/css/main.css" %}" />
+		<link rel="stylesheet" href="{% static "frontend/css/schedule.css" %}" />
+		<link rel="icon" href="{% static "frontend/images/favicon.png" %}" type="image/x-icon">
+	</head>
+	<body>
+		<!-- Header -->
+			<header id="header">
+				<nav class="left">
+					<a href="#menu"><span>Menu</span></a>
+				</nav>
+
+				
+				<ul class="actions align-center onbig">
+					<li><img src="{% static "frontend/images/logo.png" %}" id="logo_img" /></li>
+					<li><a href="{% url "promo" %}" class="logo">Расписание МИРЭА<sup>beta</sup></a></li>
+				</ul>	
+				<a href="{% url "promo" %}" class="onsmall logo">Расписание МИРЭА<sup>beta</sup></a>
+
+				<nav class="right">
+					{% if group %}
+					<div class="header_group"><span>{{ group }}</span></div>
+					{% endif %}
+				</nav>
+			</header>
+
+		<!-- Menu -->
+			<nav id="menu">
+				<ul class="links">
+					<li>
+						<a href="{% url "promo" %}"><i class="fa fa-home"></i>Главная</a>
+					</li>
+					<li>
+						<a href="{% url "schedule" '' %}"><i class="fa fa-table"></i>Расписание</a>
+					</li>
+					<li>
+						<a href="{% url "editor" %}"><i class="fa fa-edit"></i>Редактор</a>
+					</li>
+					<li>
+						<a href="{% url "map_index" %}"><i class="fa fa-map-o"></i>Карта</a>
+					</li>
+					<li>
+						<a href="{% url "help" %}"><i class="fa fa-info"></i>Справка</a>
+					</li>
+				</ul>
+			</nav>
+
+		{% block content %}{% endblock %}
+		<!-- Scripts -->
+			<script src="{% static "frontend/js/jquery.min.js" %}"></script>
+			<script src="{% static "frontend/js/jquery.scrolly.min.js" %}"></script>
+			<script src="{% static "frontend/js/skel.min.js" %}"></script>
+			<script src="{% static "frontend/js/util.js" %}"></script>
+			<script src="{% static "frontend/js/main.js" %}"></script>
+
+	</body>
+</html>

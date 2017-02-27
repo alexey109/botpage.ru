@@ -1,0 +1,327 @@
+@charset "UTF-8";
+
+.header_group {
+	font-size: 1.4em;
+	color: #2ca5e1;
+	
+}
+
+.header_group span {
+	padding: 0.1em;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+	border: 1px solid #2ca5e1;	
+	border-radius: 1em;
+	-webkit-border-radius: 1em;
+	-moz-border-radius: 1em;
+	-khtml-border-radius: 1em;
+}
+
+#jscurtain {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	z-index: 10000;
+	text-align: center;
+	padding-top: 2em;
+	font-size: 2em;
+}
+
+.schedule {
+	min-width: 90em;
+}
+
+.schedule .new_event {
+	width: 100%;
+	height: 100%;
+	bottom: 0;
+	text-align: center;
+	font-size: 0.9em;
+	color:	white;
+}
+
+	.schedule td:hover .new_event {		
+		color: black;	
+	}
+
+	.schedule td:hover .new_event:hover {	
+		background-color: #D6EEFF;
+		border-radius: 0.5em;
+		-webkit-border-radius: 0.5em;
+		-moz-border-radius: 0.5em;
+		-khtml-border-radius: 0.5em;
+		cursor: pointer;
+	}
+
+.schedule .left {
+	width: 3em;
+}
+
+.schedule .event {
+	border: 1px solid white;
+	border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	-khtml-border-radius: 0.5em;
+}
+
+	.schedule .event:hover {
+		position: relative;
+		background-color: #D6EEFF;
+	}
+	
+.schedule .event .show {
+	display: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: white;	
+	background-color: #2ca5e1;
+	border-radius: 0 0.5em 0 0;
+	-webkit-border-radius: 0 0.5em 0 0;
+	-moz-border-radius:  0 0.5em 0 0;
+	-khtml-border-radius:  0 0.5em 0 0;
+	cursor: pointer;
+	text-align: center;
+	padding-right: 0.1em;
+	font-size: 1em;
+	width: 2em;
+}
+
+	.schedule .event:hover .show {
+		display: inline-block;
+	}
+
+.schedule .event[data-hide=True] {
+	opacity: 0.5;
+}
+
+.schedule .event[data-isuser=True] {
+	background-color: #D6EEFF;
+}
+
+	.schedule .event[data-isuser=True]:hover {
+		background-color: #B3DFFF;
+	}
+
+.schedule .line {
+	position: relative;
+	top: 0;
+}
+
+.schedule .event_week {
+	width: 60%;
+	text-align: middle;
+	position: absolute;
+	left: 0;
+}
+.schedule .event_room {
+	width: 40%;
+	text-align: middle;
+	position: absolute;
+	right: 0;
+}
+
+.schedule .events_cell {
+	width: 14em;
+}
+
+.panel {
+	border-collapse: unset;
+	text-align: center;
+	table-layout: fixed;
+	cursor: pointer;
+	-webkit-touch-callout: none; 
+	-webkit-user-select: none; 
+	-khtml-user-select: none;
+	-moz-user-select: none; 
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.panel td {
+	border: 1px solid #464a4f;
+	border-right: none;
+	position: relative;
+}
+
+.panel td:first-child {
+	border-radius: 1em 0 0 1em;
+	border: 1px solid #464a4f;
+	-webkit-border-radius: 1em 0 0 1em;
+	-moz-border-radius: 1em 0 0 1em;
+	-khtml-border-radius: 1em 0 0 1em;
+	border-right: none;
+}
+.panel td:last-child {
+	border-radius: 0 1em 1em 0;
+	border: 1px solid #464a4f;
+	-webkit-border-radius: 0 1em 1em 0;
+	-moz-border-radius: 0 1em 1em 0;
+	-khtml-border-radius: 0 1em 1em 0;
+}
+
+.panel a {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.panel .panel_on {
+	background-color: #2ca5e1;
+	color: white;
+}
+
+.panel .panel_off {
+	background-color: white;
+	color: inherit;
+}
+
+	.panel .panel_on:hover {
+		background-color: #51b3e4;
+	}
+
+	.panel .panel_off:hover {
+		background-color: #f1f7ff;
+	}
+
+.panel .week_range {
+	font-size: 0.7em;
+}
+
+.toolbar {
+	min-width: 90em;
+}
+
+.toolbar div{
+	float: left;
+	position: relative;
+}
+
+.toolbar .panel {
+	padding-top: 1em;
+}
+
+.toolbar .mode {
+	width: 34em;
+}
+
+.toolbar .style {
+	width: 26em;
+	margin-left: 2em;
+	margin-right: 2em;
+}
+
+.toolbar .notifications {
+	width: 36em;
+}
+
+.toolbar .title {
+	position: absolute;
+	text-align: center;
+	width: 100%;
+	top: 0em;
+}
+
+.my_form {
+	text-align: left;
+	display: none;
+	position: absolute;	
+	background-color: white;
+	border: 1px solid #464a4f;
+	border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius:  0.5em;
+	-khtml-border-radius: 0.5em;
+	text-align: right;
+	padding: 0.5em;
+	z-index: 500;
+}
+
+.my_form #close {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: white;	
+	background-color: #f6755e;
+	border-radius: 0 0.5em 0 0;
+	-webkit-border-radius: 0 0.5em 0 0;
+	-moz-border-radius:  0 0.5em 0 0;
+	-khtml-border-radius:  0 0.5em 0 0;
+	cursor: pointer;
+	font-size: 1em;
+	text-align: center;
+	width: 2em;
+}
+
+.my_form h4 {
+	width: 100%;
+	text-align: center;
+	font-size: 0.9em;
+	margin-bottom: 0;
+}
+
+.my_form form, label {
+	margin: 0;
+}
+
+.my_form input, input[type="checkbox"] {
+	text-align: left;
+	padding-left: 0.3em;
+	padding-right: 0.3em;
+	margin-top: 0.5em;
+}
+
+.my_form label {
+	float: left;
+	margin-top: 0.4em;	
+}
+
+#promo_form {
+	display: inline-block;
+	position: relative;
+	width: 30%;
+	min-width: 30em;
+}
+
+#promo_form input {
+	padding-left: 1em;
+	padding-right: 1em;
+}
+
+	@media screen and (max-width: 750px) {
+		.toolbar {
+		min-width: 90em;
+		}
+
+		.schedule .left {
+			display: none;
+		}
+	
+		.schedule tr { 
+			float: top;
+		}
+		
+		thead {
+			min-width: 120px;
+		}
+		
+		td,th {
+			display: block;
+		}
+		
+		#promo_form {
+			width: 100%;
+			min-width: 100%;
+		}
+		
+		#promo_form span {
+			font-size:0.8em;
+			padding-right: 1em;
+		}
+	}
+
+
