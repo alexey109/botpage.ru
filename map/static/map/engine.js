@@ -79,7 +79,9 @@ function createLabels(rooms_obj, label_obj) {
 					room.setAttribute('class','room_cafe');
 					break;
 			};
-		} catch (e) {};
+		} catch (e) {
+			continue
+		};
 		if (room.tagName == 'g') {
 			var max_room = null;
 			for (var j = 0; j < room.childNodes.length; j++) {

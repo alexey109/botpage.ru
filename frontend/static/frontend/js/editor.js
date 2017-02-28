@@ -54,7 +54,7 @@ function switchByID(event) {
 	event = event || window.event;
 	switcher = event.target;
 	var xhr = new XMLHttpRequest();
-	xhr.open('GET', 'http://127.0.0.1:8000/switcher/' + switcher.id, false);
+	xhr.open('GET', 'http://botpage.ru/switcher/' + switcher.id, false);
 	xhr.send();
 	location.href = location.href;
 }
