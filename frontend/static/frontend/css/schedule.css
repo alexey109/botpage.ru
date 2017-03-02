@@ -3,7 +3,11 @@
 .header_group {
 	font-size: 1.4em;
 	color: #464a4f;
-	
+}
+
+.header_group a {
+	text-decoration: none;
+	color: #464a4f;
 }
 
 .header_group span {
@@ -367,30 +371,22 @@
 		}
 	}
 		
-	@media screen and (max-width: 770px) {		
+	@media screen and (max-width: 1000px) {		
 		.toolbar {
 			display: none;
 		}
-
-		.schedule .left {
+		
+		.panel {
 			display: none;
 		}
-	
-		.schedule tr { 
-			float: top;
-		}
-		
-		thead {
-			min-width: 14em;
-		}
-		
-		td,th {
-			display: block;
+
+		.schedule {
+			display: none;
 		}
 		
 		#promo_form {
-			width: 100%;
-			min-width: 100%;
+			width: 90%;
+			min-width: 90%;
 		}
 		
 		#promo_form span {

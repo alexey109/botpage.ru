@@ -143,3 +143,9 @@
 			font-weight: 600;
 		}
 	}
+	
+	@media screen and (max-width: 1500px) {
+		.lable-container div {
+			font-weight: 900;
+		}
+	}
