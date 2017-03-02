@@ -2,7 +2,7 @@
 
 .header_group {
 	font-size: 1.4em;
-	color: #2ca5e1;
+	color: #464a4f;
 	
 }
 
@@ -10,7 +10,7 @@
 	padding: 0.1em;
 	padding-left: 0.3em;
 	padding-right: 0.3em;
-	border: 1px solid #2ca5e1;	
+	border: 1px solid #464a4f;	
 	border-radius: 1em;
 	-webkit-border-radius: 1em;
 	-moz-border-radius: 1em;
@@ -27,7 +27,11 @@
 	padding-top: 2em;
 	font-size: 2em;
 }
-
+	
+#weeks_list {
+	display: none;	
+}
+	
 .schedule {
 	min-width: 90em;
 }
@@ -124,7 +128,11 @@
 }
 
 .schedule .events_cell {
-	width: 14em;
+	min-width: 14em;
+}
+
+.tbl_bottom {
+	display: none;
 }
 
 .panel {
@@ -190,6 +198,12 @@
 
 .panel .week_range {
 	font-size: 0.7em;
+}
+
+.weeks_title {
+	text-align: center;
+	width: 100%;
+	top: 0em;
 }
 
 .toolbar {
@@ -292,9 +306,70 @@
 	padding-right: 1em;
 }
 
-	@media screen and (max-width: 750px) {
+		
+	@media screen and (max-width: 1500px) {
+		.toolbar .style {
+			margin-left: 1.5em;
+			margin-right: 1.5em;
+		}
+		
+	@media screen and (max-width: 1320px) {
+		.week_range {
+			display: none;
+		}
+		
 		.toolbar {
-		min-width: 90em;
+			min-width: 63em;
+			margin-left: 4%;	
+		}
+		
+		.toolbar .mode {
+			width: 30em;
+		}
+		
+		.toolbar .style {
+			width: 30em;
+		}
+				
+		.toolbar .notifications {
+			width: 61.5em;
+		}
+		
+		.schedule {
+			min-width: 45em;
+		}
+		
+		.schedule .extra_days {
+			display: none;
+		}
+		
+		.tbl_bottom {
+			display: table;
+		}
+	}
+	
+	@media screen and (max-width: 1200px) {
+		.toolbar {
+			min-width: 40em;
+			margin: 4%;	
+		}
+		.toolbar .mode {
+			width: 100%;
+		}
+
+		.toolbar .style {
+			width: 100%;
+			margin-left: 0em;
+		}
+		
+		.toolbar .notifications {
+			width: 100%;
+		}
+	}
+		
+	@media screen and (max-width: 770px) {		
+		.toolbar {
+			display: none;
 		}
 
 		.schedule .left {
@@ -306,7 +381,7 @@
 		}
 		
 		thead {
-			min-width: 120px;
+			min-width: 14em;
 		}
 		
 		td,th {

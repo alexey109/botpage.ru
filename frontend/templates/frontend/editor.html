@@ -94,9 +94,9 @@ var schedule_full = {
 		<th>Понедельник</th>
 		<th>Вторник</th>
 		<th>Среда</th>
-		<th>Четверг</th>
-		<th>Пятница</th>
-		<th>Суббота</th>
+		<th class="extra_days">Четверг</th>
+		<th class="extra_days">Пятница</th>
+		<th class="extra_days">Суббота</th>
 	</tr>
 </thead>
 <tbody>
@@ -105,7 +105,7 @@ var schedule_full = {
 		<td class="left">{{ row.liter }}</td>
 		<td class="left">{{ row.time }}</td>
 		{% for day, event_list in row.events.items %}
-			<td class="events_cell">
+			<td class="events_cell {% if day > 2 %}extra_days{% endif %}">
 			{% for event in event_list %}
 			<div id="{{ event.id }}" class="event" data-hide="{{ event.hide }}" data-isuser="{{ event.is_user }}">
 				{% if mode.user %}
@@ -132,6 +132,53 @@ var schedule_full = {
 {% endfor %}
 </tbody>
 </table>
+
+<table class="schedule alt align-center tbl_bottom">
+<thead>
+	<tr>
+		<th></th>
+		<th></th>
+		<th>Четверг</th>
+		<th>Пятница</th>
+		<th>Суббота</th>
+	</tr>
+</thead>
+<tbody>
+{% for numb, row in table_content.items %}
+	<tr>
+		<td class="left">{{ row.liter }}</td>
+		<td class="left">{{ row.time }}</td>
+		{% for day, event_list in row.events.items %}
+		{% if day > 2 %}
+			<td class="events_cell">
+			{% for event in event_list %}
+			<div id="{{ event.id }}" class="event" data-hide="{{ event.hide }}" data-isuser="{{ event.is_user }}">
+				{% if mode.user %}
+					<div class="show"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+				{% endif %}
+				<span class="event_name">{{ event.name }}<br></span>
+				{% if view.teacher %}
+					<span class="event_teacher">{{ event.teacher }}<br></span>
+				{% endif %}
+				{% if view.weekroom %}
+					<div class="line event_weekroom">&nbsp;
+						<span class="event_week">{{ event.week }}</span>
+						<span class="event_room">{{ event.room }}</span>
+					</div>
+				{% endif %}
+			</div>
+			{% endfor %}
+			{% if mode.user %}
+				<div class="new_event" data-day="{{ day }}" data-numb="{{ numb }}">+</div>
+			{% endif %}
+			</td>
+		{% endif %}
+		{% endfor %}
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+
 </div>
 </div>
 </div>

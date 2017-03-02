@@ -138,14 +138,6 @@
 		vertical-align: middle;
 		margin-top: -20%;
 	}
-	
-	#weeks_list {
-		display: none;	
-	}
-
-	#weeks_buttons {			
-		min-width: 1200px;
-	}
 
 	.fa {
 		width:30px;
@@ -207,13 +199,14 @@
 
 	.inner_short {
 		margin: 0 auto;
+		padding: 1em;
 		max-width: 50em;
 	}
 
 		@media screen and (max-width: 1280px) {
 
 			.inner {
-				max-width: 90%;
+				max-width: 98%;
 			}
 
 		}
@@ -235,7 +228,7 @@
 
 		}
 
-		@media screen and (max-width: 1480px) {
+		@media screen and (max-width: 1500px) {
 
 			body, input, select, textarea {
 				font-size: 10pt;
@@ -243,18 +236,10 @@
 
 		}
 		
-		@media screen and (max-width: 1350px) {
+		@media screen and (max-width: 1320px) {
 
 			body, input, select, textarea {
-				font-size: 9pt;
-			}
-
-		}
-		
-		@media screen and (max-width: 1280px) {
-
-			body, input, select, textarea {
-				font-size: 8pt;
+				font-size: 14pt;
 			}
 
 		}
@@ -262,23 +247,7 @@
 		@media screen and (max-width: 1200px) {
 
 			body, input, select, textarea {
-				font-size: 7pt;
-			}
-
-		}
-
-		@media screen and (max-width: 736px) {
-
-			body, input, select, textarea {
-				font-size: 9pt;
-			}
-
-		}
-
-		@media screen and (max-width: 480px) {
-
-			body, input, select, textarea {
-				font-size: 12pt;
+				font-size: 15pt;
 			}
 
 		}
@@ -716,6 +685,8 @@
 
 		.image img {
 			display: block;
+			min-width:100%;
+			height: auto;
 		}
 
 		.image.left, .image.right {
@@ -1262,7 +1233,7 @@
 				text-align: right;
 			}
 
-		@media screen and (max-width: 980px) {
+		@media screen and (max-width: 1200px) {
 
 			.flex {
 				-ms-flex-wrap: wrap;
@@ -1310,10 +1281,10 @@
 				color: #fff;
 			}
 
-		@media screen and (max-width: 980px) {
+		@media screen and (max-width: 1200px) {
 
 			.wrapper {
-				padding: 3em 0 1em 0;
+				padding: 1em 0 1em 0;
 			}
 
 		}
@@ -1321,7 +1292,7 @@
 		@media screen and (max-width: 480px) {
 
 			.wrapper {
-				padding: 2em 0 0.1em 0;
+				padding: 1em 0 0.1em 0;
 			}
 
 		}
@@ -1422,12 +1393,12 @@
 	@media screen and (max-width: 980px) {
 
 		body {
-			padding-top: 44px;
+			padding-top: 54px;
 		}
 
 		#header {
-			height: 44px;
-			line-height: 44px;
+			height: 54px;
+			line-height: 54px;
 		}
 
 			#header .logo {
@@ -1436,7 +1407,7 @@
 			}
 
 			#header nav a[href="#menu"] {
-				font-size: 1.5em;
+				font-size: 2em;
 			}
 
 			#header nav.left {
@@ -1453,9 +1424,11 @@
 	@media screen and (max-width: 480px) {
 
 		#header {
-			min-width: 320px;
+			padding-left: 2.5em;
+			text-align: center;
+			min-width: 340px;
 		}
-
+		
 		#logo_img {
 			display:none;			
 		}
@@ -1630,7 +1603,7 @@
 		@media screen and (max-width: 1280px) {
 
 			#banner {
-				padding: 12em 0 10em 0;
+				padding: 10em 0 10em 0;
 			}
 
 		}
@@ -1638,7 +1611,7 @@
 		@media screen and (max-width: 980px) {
 
 			#banner {
-				padding: 8em 6em 6em 6em;
+				padding: 6em 6em 6em 6em;
 			}
 
 				#banner br {
@@ -1654,7 +1627,7 @@
 		@media screen and (max-width: 736px) {
 
 			#banner {
-				padding: 6em 4em 4em 4em;
+				padding: 4em 4em 4em 4em;
 			}
 
 		}
@@ -1662,7 +1635,7 @@
 		@media screen and (max-width: 480px) {
 
 			#banner {
-				padding: 4em 2em 2em 2em;
+				padding: 2em 2em 2em 2em;
 			}
 
 				#banner h1 {
@@ -1742,7 +1715,7 @@
 
 		}
 
-		@media screen and (max-width: 980px) {
+		@media screen and (max-width: 1200px) {
 
 			#one .flex-item {
 				-moz-flex-direction: column;
@@ -1777,11 +1750,22 @@
 		margin: 0;
 	}
 
+		@media screen and (max-width: 1320px) {
+
+			#one .image.fit {
+				margin: 0 auto 2em auto;
+				max-width: 20em;
+				max-height: 20em;
+			}
+
+		}
+
 		@media screen and (max-width: 980px) {
 
 			#one .image.fit {
 				margin: 0 auto 2em auto;
 				max-width: 60%;
+				max-height: 100%;
 			}
 
 		}

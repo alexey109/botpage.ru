@@ -37,6 +37,7 @@
 } 
 
 #field {
+	font-size: 12pt;
 	position: fixed;
 	height: 100%;
 	width: 100%;
@@ -103,6 +104,7 @@
 }
 
 #loader div {
+	top: -40px;
 	display: table-cell;
 	vertical-align: middle;
 }
@@ -110,10 +112,10 @@
 .fbuttons {
 	z-index: 1;
 	position: fixed;
-	width: 1.5em;
+	width: 1.8em;
 	font-size: 1.5em;
 	text-align: center;
-	background-color: #f0f6f9;/*#e0e0e0;*/
+	background-color: #f0f6f9;
 	border-radius: 1em;
 	-webkit-border-radius: 2em;
 	-moz-border-radius: 2em;
@@ -131,13 +133,13 @@
 }
 
 #floor_txt {
-	font-size: 0.4em;
+	font-size: 0.5em;
 	margin-top: -1em;
 }
 
-	@media screen and (max-width: 480px) {
+
+	@media screen and (max-width: 1500px) {
 		.fbuttons {
-			font-size: 1em;
-			border: 1px solid black;
+			font-weight: 600;
 		}
 	}

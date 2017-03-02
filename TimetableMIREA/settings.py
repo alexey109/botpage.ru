@@ -26,6 +26,7 @@ SECRET_KEY = 'f@s3sx6qd(xgm%!yjuz&&%uc(b9c_j6y)a@m+cn2&#h5hd8bqn'
 DEBUG = True
 
 ALLOWED_HOSTS = [
+	'127.0.0.1',
 	u'botpage.ru',
 ]
 

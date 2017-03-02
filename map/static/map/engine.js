@@ -18,6 +18,10 @@ function getDelta(old, a1, a2) {
 function mousemove(event) {
 	move_x = getDelta(delta_x, down_x, event.clientX);
 	move_y = getDelta(delta_y, down_y, event.clientY);
+	try {
+		move_x = getDelta(delta_x, down_x, event.touches.item(0).screenX);
+		move_y = getDelta(delta_y, down_y, event.touches.item(0).screenY);
+	} catch (e) {};
 	map_container.style.transform = 'translate(' 
 		+ move_x.toString() + 'px,' 
 		+ move_y.toString() + 'px)';
@@ -26,16 +30,28 @@ function mousemove(event) {
 function mouseup(event) {
 	delta_x = getDelta(delta_x, down_x, event.clientX);
 	delta_y = getDelta(delta_y, down_y, event.clientY);
+	try {
+		delta_x = getDelta(delta_x, down_x, event.touches.item(0).screenX);
+		delta_y = getDelta(delta_y, down_y, event.touches.item(0).screenY);
+	} catch (e) {};
 	this.removeEventListener('mousemove', mousemove);
 	this.removeEventListener('mouseup', mouseup); 
+	this.removeEventListener('touchmove', mousemove);
+	this.removeEventListener('touchend', mouseup); 
 }
 
 function mousedown(event) {
 	down_x = event.clientX;
 	down_y = event.clientY;
+	try {
+		delta_x = event.touches.item(0).screenX;
+		delta_y = event.touches.item(0).screenY;
+	} catch (e) {};
 
 	this.addEventListener('mousemove', mousemove); 
 	this.addEventListener('mouseup', mouseup); 
+	this.addEventListener('touchmove', mousemove); 
+	this.addEventListener('touchend', mouseup); 
 
 }
 
@@ -223,6 +239,7 @@ function init() {
 
 	document.addEventListener('wheel', zoom_mouse);
 	document.addEventListener('mousedown', mousedown);
+	document.addEventListener('touchstart', mousedown);
 	document.addEventListener('dragstart', null);
 
 	floors[0] = init_floor('floor0');

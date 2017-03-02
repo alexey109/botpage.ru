@@ -3,6 +3,7 @@
 <section id="main" class="wrapper">
 <div class="inner">
 <div class="table-wrapper">
+<div class="weeks_title">НЕДЕЛИ</div>
 <table class="panel">
 <tbody>
 	<tr>
@@ -15,6 +16,7 @@
 	</tr>
 </tbody>
 </table>
+
 <table class="schedule alt align-center">
 <thead>
 	<tr>
@@ -23,9 +25,9 @@
 		<th>Понедельник</th>
 		<th>Вторник</th>
 		<th>Среда</th>
-		<th>Четверг</th>
-		<th>Пятница</th>
-		<th>Суббота</th>
+		<th class="extra_days">Четверг</th>
+		<th class="extra_days">Пятница</th>
+		<th class="extra_days">Суббота</th>
 	</tr>
 </thead>
 <tbody>
@@ -34,7 +36,7 @@
 		<td class="left">{{ row.liter }}</td>
 		<td class="left">{{ row.time }}</td>
 		{% for day, event_list in row.events.items %}
-			<td  class="events_cell">
+			<td  class="events_cell {% if day > 2 %}extra_days{% endif %}">
 			{% for event in event_list %}
 			<div>
 				<span class="event_name">{{ event.name }}</span><br>
@@ -53,6 +55,45 @@
 {% endfor %}
 </tbody>
 </table>
+
+<table class="schedule alt align-center tbl_bottom">
+<thead>
+	<tr>
+		<th></th>
+		<th></th>
+		<th>Четверг</th>
+		<th>Пятница</th>
+		<th>Суббота</th>
+	</tr>
+</thead>
+<tbody>
+{% for numb, row in table_content.items %}
+	<tr>
+		<td class="left">{{ row.liter }}</td>
+		<td class="left">{{ row.time }}</td>
+		{% for day, event_list in row.events.items %}
+			{% if day > 2 %}
+				<td  class="events_cell">
+				{% for event in event_list %}
+				<div>
+					<span class="event_name">{{ event.name }}</span><br>
+					{% if event.teacher %}<span class="event_teacher">{{ event.teacher }}</span><br>{% endif %}
+					{% if event.week or event.room %}
+					<div class="line">&nbsp;
+						<span class="event_week">{{ event.week }}</span>
+						<span class="event_room">{{ event.room }}</span>
+					</div>
+					{% endif %}
+				</div>
+				{% endfor %}
+				</td>
+			{% endif %}
+		{% endfor %}
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+
 </div>
 </div>
 </div>
