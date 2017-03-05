@@ -4,7 +4,7 @@
 <div class="inner">
 <div class="table-wrapper">
 <div class="weeks_title">НЕДЕЛИ</div>
-<table class="panel">
+<table class="panel on_pc">
 <tbody>
 	<tr>
 		{% for numb, week in week_panel.items %}
@@ -16,12 +16,28 @@
 	</tr>
 </tbody>
 </table>
+<table class="panel on_mobile">
+<tbody>
+	<tr>
+		{% for numb, week in week_panel.items %}
+		{% if numb == 9 %}
+	</tr>
+	<tr>
+		{% endif %}
+		<td class="{% if week.status %}panel_on{% else %}panel_off{% endif%}" >
+			<a href="{% url "schedule" numb %}"></a>
+			{{ numb }}
+		</td>
+		{% endfor %}
+	</tr>
+</tbody>
+</table>
 
 <table class="schedule alt align-center">
 <thead>
 	<tr>
 		<th></th>
-		<th></th>
+		<th class="ltime"></th>
 		<th>Понедельник</th>
 		<th>Вторник</th>
 		<th>Среда</th>
@@ -34,7 +50,7 @@
 {% for numb, row in table_content.items %}
 	<tr>
 		<td class="left">{{ row.liter }}</td>
-		<td class="left">{{ row.time }}</td>
+		<td class="left ltime">{{ row.time }}</td>
 		{% for day, event_list in row.events.items %}
 			<td  class="events_cell {% if day > 2 %}extra_days{% endif %}">
 			{% for event in event_list %}
@@ -60,7 +76,7 @@
 <thead>
 	<tr>
 		<th></th>
-		<th></th>
+		<th class="ltime"></th>
 		<th>Четверг</th>
 		<th>Пятница</th>
 		<th>Суббота</th>
@@ -70,7 +86,7 @@
 {% for numb, row in table_content.items %}
 	<tr>
 		<td class="left">{{ row.liter }}</td>
-		<td class="left">{{ row.time }}</td>
+		<td class="left ltime">{{ row.time }}</td>
 		{% for day, event_list in row.events.items %}
 			{% if day > 2 %}
 				<td  class="events_cell">
@@ -95,6 +111,34 @@
 </table>
 
 </div>
+</div>
+
+<div class="mobile">
+{% for day, day_content in mobile_content.items %}
+	<div class="day">
+	<div class="day_label">{{ day_content.label }}</div>
+	{% for numb, row in day_content.content.items %}
+		<div class="numb">
+			<div class="liter"><div>{{ row.liter }}</div></div>
+			<div class="time"><div>{{ row.time }}</div></div>
+			<div class="events">
+			{% for event in row.events %}
+				<div>
+					<span class="event_name">{{ event.name }}</span><br>
+					{% if event.teacher %}<span class="event_teacher">{{ event.teacher }}</span><br>{% endif %}
+					{% if event.week or event.room %}
+						<div class="line">&nbsp;
+							<span class="event_week">{{ event.week }}</span>
+							<span class="event_room">{{ event.room }}</span>
+						</div>
+					{% endif %}
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+{% endfor %}
 </div>
 </div>
 

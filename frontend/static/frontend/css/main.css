@@ -245,11 +245,15 @@
 		}
 		
 		@media screen and (max-width: 1200px) {
-
 			body, input, select, textarea {
 				font-size: 15pt;
 			}
-
+		}
+		
+		@media screen and (max-width: 1200px) {
+			body, input, select, textarea {
+				font-size: 15pt;
+			}
 		}
 
 /*	a {

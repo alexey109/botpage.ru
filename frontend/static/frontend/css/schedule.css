@@ -31,11 +31,7 @@
 	padding-top: 2em;
 	font-size: 2em;
 }
-	
-#weeks_list {
-	display: none;	
-}
-	
+
 .schedule {
 	min-width: 90em;
 }
@@ -139,6 +135,12 @@
 	display: none;
 }
 
+
+.on_mobile {
+	display: none;
+	border-spacing: 0 1em;
+}
+
 .panel {
 	border-collapse: unset;
 	text-align: center;
@@ -211,7 +213,7 @@
 }
 
 .toolbar {
-	min-width: 90em;
+	min-width: 50em;
 }
 
 .toolbar div{
@@ -243,6 +245,11 @@
 	width: 100%;
 	top: 0em;
 }
+
+.mobile_weeks {
+	display: none;
+}
+
 
 .my_form {
 	text-align: left;
@@ -298,6 +305,113 @@
 	margin-top: 0.4em;	
 }
 
+.mobile {
+	display: none;
+	position: relative;
+	padding: 1em;
+	margin: 0 auto;
+	text-align: center;
+	border-collapse: collapse;
+}
+
+.mobile .day {
+	display: table;
+	margin-bottom: 2em;
+	height: 100%;
+}
+
+.mobile .day_label {
+	width: 100%;
+	color: #727a82;
+	font-size: 0.9em;
+	font-weight: 700;
+	padding: 0 0.75em 0.75em 0.75em;
+	text-align: center;
+}
+
+.mobile .numb {
+	border: 1px solid #dee1e3;
+	display: table-row;
+	height: 100%;
+}
+
+.mobile .liter {
+	float: left;
+	display: table-cell;
+	width: 2em;
+	height: 100%;
+}
+
+.mobile .time {
+	float: left;
+	display: table-cell;
+	width: 4em;
+	height: 100%;
+}
+
+.mobile .events {
+	float: left;
+	display: table-cell;
+	width: 14em;
+	height: 100%;
+}
+
+.mobile .liter > div, .mobile .time > div {
+	height: 100%;
+	border-right: 1px solid #dee1e3;
+    -moz-box-sizing: border-box;
+}
+
+.mobile .line {
+	position: relative;
+	top: 0;
+}
+
+.mobile .event_week {
+	width: 60%;
+	text-align: middle;
+	position: absolute;
+	left: 0;
+}
+.mobile .event_room {
+	width: 40%;
+	text-align: middle;
+	position: absolute;
+	right: 0;
+}
+
+.mobile .event, .mobile .new_event {
+	background-color: #EDF8FF;
+	border: 1px solid white;
+	border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	-khtml-border-radius: 0.5em;
+	position: relative;
+	margin-bottom:0.5em;
+}
+
+.mobile .event[data-isuser=True] {
+	background-color: #B3DFFF;
+}
+
+.mobile .show {
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: white;	
+	background-color: #2ca5e1;
+	border-radius: 0 0.5em 0 0;
+	-webkit-border-radius: 0 0.5em 0 0;
+	-moz-border-radius:  0 0.5em 0 0;
+	-khtml-border-radius:  0 0.5em 0 0;
+	cursor: pointer;
+	text-align: center;
+	padding-right: 0.1em;
+	font-size: 1em;
+	width: 2em;
+}
+
 #promo_form {
 	display: inline-block;
 	position: relative;
@@ -309,7 +423,6 @@
 	padding-left: 1em;
 	padding-right: 1em;
 }
-
 		
 	@media screen and (max-width: 1500px) {
 		.toolbar .style {
@@ -352,7 +465,7 @@
 		}
 	}
 	
-	@media screen and (max-width: 1200px) {
+	@media screen and (max-width: 1250px) {
 		.toolbar {
 			min-width: 40em;
 			margin: 4%;	
@@ -369,19 +482,34 @@
 		.toolbar .notifications {
 			width: 100%;
 		}
+		
+		.schedule .left {
+			width: 1em;
+		}
 	}
 		
-	@media screen and (max-width: 1000px) {		
+	@media screen and (max-width: 1015px) {	
+		.schedule .ltime {
+			display: none
+		}
+		
 		.toolbar {
+			min-width: 20em;
+		}
+	}
+		
+	@media screen and (max-width: 920px) {		
+		.schedule {
 			display: none;
 		}
 		
-		.panel {
-			display: none;
+		.mobile {
+			display: table;
+			font-size: 1.2em;
 		}
-
-		.schedule {
-			display: none;
+		
+		.my_form, .my_form input {
+			font-size: 1.2em;
 		}
 		
 		#promo_form {
@@ -393,6 +521,37 @@
 			font-size:0.8em;
 			padding-right: 1em;
 		}
+		
+		.on_pc {
+			display: none;
+		}
+		
+		.on_mobile {
+			display: table;
+		}
+	}
+	
+	@media screen and (max-width: 600px) {	
+		.mobile, .my_form, .my_form input  {
+			font-size: 1em;
+		}	
+	}
+	
+	@media screen and (max-width: 450px) {	
+		.toolbar {
+			font-size: 0.7em;
+		}
+		
+		.mobile, .my_form, .my_form input {
+			font-size: 0.8em;	
+		}
 	}
 
+	
+	@media screen and (max-width: 370px) {	
+		
+		.mobile .time{
+			display: none;
+		}
+	}
 

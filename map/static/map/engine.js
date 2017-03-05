@@ -11,48 +11,48 @@ var active_floor = 2;
 var CONST_LABEL_CLASS = 'lable-container';
 var CONST_LABEL_PADDING = -15;
 
+
 function getDelta(old, a1, a2) {
 	return old + (a1 - a2) * (-1) / scale;
 }
 
 function mousemove(event) {
-	move_x = getDelta(delta_x, down_x, event.clientX);
-	move_y = getDelta(delta_y, down_y, event.clientY);
-	try {
-		move_x = getDelta(delta_x, down_x, event.touches.item(0).screenX);
-		move_y = getDelta(delta_y, down_y, event.touches.item(0).screenY);
-	} catch (e) {};
+	if (event.type == 'mousemove') {
+		move_x = getDelta(delta_x, down_x, event.clientX);
+		move_y = getDelta(delta_y, down_y, event.clientY);
+	} else {
+		delta_x = move_x = getDelta(delta_x, down_x, event.touches.item(0).clientX);
+		delta_y = move_y = getDelta(delta_y, down_y, event.touches.item(0).clientY);
+	};
 	map_container.style.transform = 'translate(' 
 		+ move_x.toString() + 'px,' 
 		+ move_y.toString() + 'px)';
 }
 
 function mouseup(event) {
-	delta_x = getDelta(delta_x, down_x, event.clientX);
-	delta_y = getDelta(delta_y, down_y, event.clientY);
-	try {
-		delta_x = getDelta(delta_x, down_x, event.touches.item(0).screenX);
-		delta_y = getDelta(delta_y, down_y, event.touches.item(0).screenY);
-	} catch (e) {};
-	this.removeEventListener('mousemove', mousemove);
-	this.removeEventListener('mouseup', mouseup); 
-	this.removeEventListener('touchmove', mousemove);
-	this.removeEventListener('touchend', mouseup); 
+	if (event.type == 'mouseup') {
+		delta_x = getDelta(delta_x, down_x, event.clientX);
+		delta_y = getDelta(delta_y, down_y, event.clientY);
+		this.removeEventListener('mousemove', mousemove);
+		this.removeEventListener('mouseup', mouseup);
+	} else {
+		this.removeEventListener('touchmove', mousemove);
+		this.removeEventListener('touchend', mouseup);
+	};  
 }
 
 function mousedown(event) {
-	down_x = event.clientX;
-	down_y = event.clientY;
-	try {
-		delta_x = event.touches.item(0).screenX;
-		delta_y = event.touches.item(0).screenY;
-	} catch (e) {};
-
-	this.addEventListener('mousemove', mousemove); 
-	this.addEventListener('mouseup', mouseup); 
-	this.addEventListener('touchmove', mousemove); 
-	this.addEventListener('touchend', mouseup); 
-
+	if (event.type == 'mousedown') {
+		down_x = event.clientX;
+		down_y = event.clientY;
+		this.addEventListener('mousemove', mousemove); 
+		this.addEventListener('mouseup', mouseup); 
+	} else {
+		down_x = event.touches.item(0).clientX;
+		down_y = event.touches.item(0).clientY;
+		this.addEventListener('touchmove', mousemove); 
+		this.addEventListener('touchend', mouseup); 
+	};
 }
 
 function zoom(value) {
@@ -140,7 +140,7 @@ function init_floor (map_id) {
 
 	for (var i = 0; i < svg_scheme.childNodes.length; i++) {
 		if (svg_scheme.childNodes[i].id == 'layer1') {
-			createLabels(svg_scheme.childNodes[i], label_obj);
+			window.setTimeout(createLabels(svg_scheme.childNodes[i], label_obj), 100);
 			continue;
 		}
 	}
@@ -157,50 +157,53 @@ function init_floor (map_id) {
 	return floor_obj;
 }
 
+function adjustLabel(label_objs, i) {
+	var tmp_field;
+	for (var j=0; j<label_objs[i].childNodes.length;j++) {
+		textRect = label_objs[i].childNodes[j];
+		textNode = textRect.childNodes[0];
+		width = Number(textRect.style.width.slice(0, -2));
+		height = Number(textRect.style.height.slice(0, -2));	
+
+		tmp_field  = document.createElement('div');
+		tmp_field.style.position = 'absolute';
+		map_container.appendChild(tmp_field);
+		tmp_field.innerHTML = textNode.innerHTML;	
+		fontSize = 1;
+		if (Number(tmp_field.clientWidth) - width > CONST_LABEL_PADDING) {
+			if (width - height > (-5) ) {
+				while (Number(tmp_field.clientWidth) - width > CONST_LABEL_PADDING) {
+					fontSize = (fontSize - 0.01).toFixed(2);
+					tmp_field.style.fontSize = fontSize + 'em';
+				}
+			} else {
+				while (Number(tmp_field.clientWidth) - height > CONST_LABEL_PADDING) {
+					fontSize = (fontSize - 0.01).toFixed(2);
+					tmp_field.style.fontSize = fontSize + 'em';
+				};				
+
+				deg = '-90';
+				textRect.style.width	= height + 'px';
+				textRect.style.height	= width + 'px';
+				textRect.style.top		= (Number(textRect.style.top.slice(0, -2))+height)+'px';
+				textRect.style.transformOrigin = '0 0'; 
+				textRect.style.webkitTransform 	= 'rotate('+deg+'deg)'; 	
+				textRect.style.mozTransform    	= 'rotate('+deg+'deg)'; 
+				textRect.style.msTransform     	= 'rotate('+deg+'deg)'; 
+				textRect.style.oTransform      	= 'rotate('+deg+'deg)'; 
+				textRect.style.transform       	= 'rotate('+deg+'deg)'; 
+			};	
+			textNode.style.fontSize = fontSize + 'em';
+		};				
+		map_container.removeChild(tmp_field);			
+	}
+}
 
 function adjustLabels() {
 	label_objs = document.getElementsByClassName(CONST_LABEL_CLASS);
-	var tmp_field;
-
 	for(var i=0; i<label_objs.length; i++) {
-		for (var j=0; j<label_objs[i].childNodes.length;j++) {
-			textRect = label_objs[i].childNodes[j];
-			textNode = textRect.childNodes[0];
-			width = Number(textRect.style.width.slice(0, -2));
-			height = Number(textRect.style.height.slice(0, -2));	
-			
-			tmp_field  = document.createElement('div');
-			tmp_field.style.position = 'absolute';
-			map_container.appendChild(tmp_field);
-			tmp_field.innerHTML = textNode.innerHTML;	
-			fontSize = 1;
-			if (Number(tmp_field.clientWidth) - width > CONST_LABEL_PADDING) {
-				if (width - height > (-5) ) {
-					while (Number(tmp_field.clientWidth) - width > CONST_LABEL_PADDING) {
-						fontSize = (fontSize - 0.01).toFixed(2);
-						tmp_field.style.fontSize = fontSize + 'em';
-					}
-				} else {
-					while (Number(tmp_field.clientWidth) - height > CONST_LABEL_PADDING) {
-						fontSize = (fontSize - 0.01).toFixed(2);
-						tmp_field.style.fontSize = fontSize + 'em';
-					};				
-
-					deg = '-90';
-					textRect.style.width	= height + 'px';
-					textRect.style.height	= width + 'px';
-					textRect.style.top		= (Number(textRect.style.top.slice(0, -2))+height)+'px';
-					textRect.style.transformOrigin = '0 0'; 
-					textRect.style.webkitTransform 	= 'rotate('+deg+'deg)'; 	
-					textRect.style.mozTransform    	= 'rotate('+deg+'deg)'; 
-					textRect.style.msTransform     	= 'rotate('+deg+'deg)'; 
-					textRect.style.oTransform      	= 'rotate('+deg+'deg)'; 
-					textRect.style.transform       	= 'rotate('+deg+'deg)'; 
-				};	
-				textNode.style.fontSize = fontSize + 'em';
-			};				
-			map_container.removeChild(tmp_field);			
-		}
+		// Give time to loader image for running
+		window.setTimeout(adjustLabel(label_objs, i), 100);
 	}
 }
 

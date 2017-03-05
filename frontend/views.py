@@ -16,6 +16,29 @@ from .models import Groups
 from .models import UsersSchedule
 
 
+LFIRST 		= 1 # fisrt lesson number
+LLAST		= 7 # LLAST lesson number
+DELAY	= 3 # seconds
+HASH_APPEND	= 'd51a18a32b' # some string to make hash unpredictable
+DAY_NAMES = [
+	u'понедельник',
+	u'вторник',
+	u'среда',
+	u'четверг',
+	u'пятница',
+	u'суббота',
+	u'воскресение',
+]
+LEFT_COLS = {
+	1: ['I',	'9:00 10:30'],
+	2: ['II',	'10:40 12:10'],
+	3: ['III',	'13:00 14:30'],
+	4: ['IV',	'14:40 16:10'],
+	5: ['V',	'16:20 17:50'],
+	6: ['VI',	'18:00 19:30'],
+}
+
+
 def adjustText(text, max_len = 23):
 	if len(text) < max_len:
 		return text
@@ -85,21 +108,7 @@ def promo(request):
 	template = loader.get_template('frontend/promo.html')
 	return HttpResponse(template.render(context, request))
 
-def editor(request):
-	# prepare permanent data
-	first 		= 1 # fisrt lesson number
-	last		= 7 # last lesson number
-	time_delay	= 3 # seconds
-	hash_append	= 'd51a18a32b' # some string to make hash unpredictable
-	lection_time = {
-		1: ['I',	'9:00 10:30'],
-		2: ['II',	'10:40 12:10'],
-		3: ['III',	'13:00 14:30'],
-		4: ['IV',	'14:40 16:10'],
-		5: ['V',	'16:20 17:50'],
-		6: ['VI',	'18:00 19:30'],
-	}
-	
+def editor(request):	
 	# Get user object
 	wrong_user = False
 	user_notice = {}
@@ -118,7 +127,7 @@ def editor(request):
 	# |
 	# V
 	input_name = request.POST.get('name', '')
-	if not wrong_user and input_name and (time.time()-request.session.get('db_access_time', 0)> time_delay):
+	if not wrong_user and input_name and (time.time()-request.session.get('db_access_time', 0)> DELAY):
 		
 		request.session['db_access_time'] = time.time()
 		request.session['mode_base'] = False
@@ -128,7 +137,7 @@ def editor(request):
 				raise Exception('Not user event!')
 				
 			# Check hashes for equal
-			if str(hash(rec_id + hash_append)) == request.POST.get('id_hash', ''):
+			if str(hash(rec_id + HASH_APPEND)) == request.POST.get('id_hash', ''):
 				# update UsersSchedule record
 				user_event = UsersSchedule.objects.get(id = int(rec_id[:-1]))
 				if bool(request.POST.get('delete', False)):
@@ -158,7 +167,7 @@ def editor(request):
 	# V
 	# generate empty schedule table with "event number - event day" element
 	event_rows = {}
-	for lnumb in range(first, last):
+	for lnumb in range(LFIRST, LLAST):
 		event_rows[lnumb] = {}
 		for day in range(0,6):
 			event_rows[lnumb][day] = []
@@ -185,7 +194,7 @@ def editor(request):
 			my_id = str(event_basic.id) + '1'	# id start with 1 -> basic schedule table
 			event = {
 				'id'		: my_id,
-				'id_hash'	: hash(my_id + hash_append),
+				'id_hash'	: hash(my_id + HASH_APPEND),
 				'name'		: event_basic.name,
 				'day'		: event_basic.day,
 				'numb'		: event_basic.numb,
@@ -201,7 +210,7 @@ def editor(request):
 		my_id = str(event_user.id) + '0'	# id start with 1 -> basic schedule table
 		event = {
 			'id'		: my_id,
-			'id_hash'	: hash(my_id + hash_append),
+			'id_hash'	: hash(my_id + HASH_APPEND),
 			'name'		: event_user.name,
 			'day'		: event_user.day,
 			'numb'		: event_user.numb,
@@ -231,12 +240,25 @@ def editor(request):
 		
 	# combine prepared data with loaded schedule
 	table_content = {}
-	for lnumb in range(first, last):
+	mobile_content = {}
+	for lday in range(0, 6):
+		mobile_content[lday] = {
+			'label' 	: DAY_NAMES[lday].title(),
+			'content'	: {},
+		}
+			
+	for lnumb in range(LFIRST, LLAST):
 		table_content[lnumb] = {
-			'liter'	: lection_time[lnumb][0],
-			'time'	: lection_time[lnumb][1],
+			'liter'	: LEFT_COLS[lnumb][0],
+			'time'	: LEFT_COLS[lnumb][1],
 			'events': event_rows[lnumb]
 		}
+		for lday in range(0,6):
+			mobile_content[lday]['content'][lnumb] = {
+				'liter'	: LEFT_COLS[lnumb][0],
+				'time'	: LEFT_COLS[lnumb][1],
+				'events': event_rows[lnumb][lday]
+			}
 	
 	# set base/user mode
 	mode = {
@@ -250,6 +272,7 @@ def editor(request):
 	context = {
 		'schedule_full'	: schedule_full,
 		'table_content'	: table_content,
+		'mobile_content': mobile_content,
 		'group' 		: request.session.get('group', ''),
 		'mode'			: mode, 
 		'view'			: view,
@@ -264,16 +287,6 @@ def schedule(request, page_week):
 		dat = dt.datetime.now()
 		page_week = dt.datetime.now().isocalendar()[1] - dt.date(2017, 2, 6).isocalendar()[1] + 1
 	page_week = int(page_week)
-	first 	= 1 # fisrt lesson number
-	last	= 7 # last lesson number
-	lection_time = {
-		1: ['I',	'9:00 10:30'],
-		2: ['II',	'10:40 12:10'],
-		3: ['III',	'13:00 14:30'],
-		4: ['IV',	'14:40 16:10'],
-		5: ['V',	'16:20 17:50'],
-		6: ['VI',	'18:00 19:30'],
-	}
 
 	# generate week numbers for week panel at top of page
 	week_panel = {}
@@ -284,7 +297,7 @@ def schedule(request, page_week):
 		}
 	# generate empty schedule table with "event number - event day" element
 	event_rows = {}
-	for lnumb in range(first, last):
+	for lnumb in range(LFIRST, LLAST):
 		event_rows[lnumb] = {}
 		for day in range(0,6):
 			event_rows[lnumb][day] = []
@@ -343,15 +356,30 @@ def schedule(request, page_week):
 		
 	# combine prepared data with loaded schedule for template
 	table_content = {}
-	for lnumb in range(first, last):
+	mobile_content = {}
+	for lday in range(0, 6):
+		mobile_content[lday] = {
+			'label' 	: DAY_NAMES[lday].title(),
+			'content'	: {},
+		}
+			
+	for lnumb in range(LFIRST, LLAST):
 		table_content[lnumb] = {
-			'liter'	: lection_time[lnumb][0],
-			'time'	: lection_time[lnumb][1],
+			'liter'	: LEFT_COLS[lnumb][0],
+			'time'	: LEFT_COLS[lnumb][1],
 			'events': event_rows[lnumb]
 		}
+		for lday in range(0,6):
+			mobile_content[lday]['content'][lnumb] = {
+				'liter'	: LEFT_COLS[lnumb][0],
+				'time'	: LEFT_COLS[lnumb][1],
+				'events': event_rows[lnumb][lday]
+			}
+			
 	context = {
 		'week_panel'	: week_panel,
 		'table_content'	: table_content,
+		'mobile_content': mobile_content,
 		'group' 		: request.session.get('group', ''),
 	}
 	template = loader.get_template('frontend/schedule.html')

@@ -14,26 +14,17 @@
 	fill-opacity:1; 
 	fill-rule:evenodd; 
 } 
-.room_cafe:hover {
-	fill:#dccc00;
-} 
 
 .room_admin {
 	fill:#cc9900;
 	fill-opacity:1; 
 	fill-rule:evenodd; 
-} 
-.room_admin:hover {
-	fill:#cc9900;
-} 
+}
 
 .room_public {
 	fill:#009900;
 	fill-opacity:1;
 	fill-rule:evenodd;
-} 
-.room_public:hover { 
-	fill:#00CC00;
 } 
 
 #field {
@@ -96,6 +87,7 @@
 #loader {
 	width: 100%;
 	height: 100%;
+	padding-bottom: 3em;
 	background-color: white;	
 	position: fixed;
 	display: table;
@@ -104,7 +96,6 @@
 }
 
 #loader div {
-	top: -40px;
 	display: table-cell;
 	vertical-align: middle;
 }

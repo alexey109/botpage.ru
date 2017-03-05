@@ -67,14 +67,14 @@ var schedule_full = {
 	<div id="close"><i class="fa fa-times" aria-hidden="true"></i></div>
 	<form method="post" action="{% url "editor" %}">
 		{% csrf_token %}
-		<input type="text" name="name" id="name" value="" placeholder="предмет" />
 		<input type="hidden" name="rec_id" id="rec_id" value="" />
 		<input type="hidden" name="id_hash" id="id_hash" value="" />
 		<input type="hidden" name="day" id="day" value="" />
 		<input type="hidden" name="numb" id="numb" value=""/>
-		<input type="text" name="teacher" id="teacher" value="" placeholder="преподаватель" />
-		<input type="text" name="week" id="week" value="" placeholder="недели ('I', 'II', '2,4')" />
-		<input type="text" name="room" id="room" value="" placeholder="аудитория" />
+		<input type="text" pattern="^[A-Za-zА-Яа-я0-9\-\.\s]+$" name="name" id="name" value="" placeholder="предмет" />
+		<input type="text" pattern="^[A-Za-zА-Яа-я0-9\-\.\s]*$" name="teacher" id="teacher" value="" placeholder="преподаватель" />
+		<input type="text" pattern="^[0-9I\s]*$" name="week" id="week" value="" placeholder="недели ('I', 'II', '2,4')" />
+		<input type="text" pattern="^[A-Za-zА-Яа-я0-9\-]*$" name="room" id="room" value="" placeholder="аудитория" />
 		<div id="input_hide">
 			<input type="checkbox" name="hide" id="hide" checked="">
 			<label for="hide" id="hide_label">не показывать</label>
@@ -90,7 +90,7 @@ var schedule_full = {
 <thead>
 	<tr>
 		<th></th>
-		<th></th>
+		<th class="ltime"></th>
 		<th>Понедельник</th>
 		<th>Вторник</th>
 		<th>Среда</th>
@@ -103,7 +103,7 @@ var schedule_full = {
 {% for numb, row in table_content.items %}
 	<tr>
 		<td class="left">{{ row.liter }}</td>
-		<td class="left">{{ row.time }}</td>
+		<td class="left ltime">{{ row.time }}</td>
 		{% for day, event_list in row.events.items %}
 			<td class="events_cell {% if day > 2 %}extra_days{% endif %}">
 			{% for event in event_list %}
@@ -137,7 +137,7 @@ var schedule_full = {
 <thead>
 	<tr>
 		<th></th>
-		<th></th>
+		<th class="ltime"></th>
 		<th>Четверг</th>
 		<th>Пятница</th>
 		<th>Суббота</th>
@@ -147,7 +147,7 @@ var schedule_full = {
 {% for numb, row in table_content.items %}
 	<tr>
 		<td class="left">{{ row.liter }}</td>
-		<td class="left">{{ row.time }}</td>
+		<td class="left ltime">{{ row.time }}</td>
 		{% for day, event_list in row.events.items %}
 		{% if day > 2 %}
 			<td class="events_cell">
@@ -179,8 +179,42 @@ var schedule_full = {
 </tbody>
 </table>
 
+<div class="mobile">
+{% for day, day_content in mobile_content.items %}
+	<div class="day">
+	<div class="day_label">{{ day_content.label }}</div>
+	{% for numb, row in day_content.content.items %}
+		<div class="numb">
+			<div class="liter"><div>{{ row.liter }}</div></div>
+			<div class="time"><div>{{ row.time }}</div></div>
+			<div class="events">
+			{% for event in row.events %}
+			<div id="{{ event.id }}" class="event" data-hide="{{ event.hide }}" data-isuser="{{ event.is_user }}">
+				{% if mode.user %}
+					<div class="show"><i class="fa fa-pencil" aria-hidden="true"></i></div>
+				{% endif %}
+				<span class="event_name">{{ event.name }}<br></span>
+				{% if view.teacher %}
+					<span class="event_teacher">{{ event.teacher }}<br></span>
+				{% endif %}
+				{% if view.weekroom %}
+					<div class="line event_weekroom">&nbsp;
+						<span class="event_week">{{ event.week }}</span>
+						<span class="event_room">{{ event.room }}</span>
+					</div>
+				{% endif %}
+			</div>
+			{% endfor %}
+			{% if mode.user %}
+				<div class="new_event" data-day="{{ day }}" data-numb="{{ numb }}">+</div>
+			{% endif %}
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+{% endfor %}
 </div>
-</div>
+
 </div>
 
 {% endblock %}
