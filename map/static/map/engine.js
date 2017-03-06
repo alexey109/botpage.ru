@@ -39,8 +39,6 @@ function mouseup(event) {
 		this.removeEventListener('mousemove', mousemove);
 		this.removeEventListener('mouseup', mouseup);
 	} else {
-		event.preventDefault();
-		event.stopPropagation();
 		delta_x = move_x;
 		delta_y = move_y;
 		this.removeEventListener('touchmove', mousemove);
@@ -55,8 +53,6 @@ function mousedown(event) {
 		this.addEventListener('mousemove', mousemove); 
 		this.addEventListener('mouseup', mouseup); 
 	} else {
-		event.preventDefault();
-		event.stopPropagation();
 		down_x = event.touches.item(0).clientX;
 		down_y = event.touches.item(0).clientY;
 		this.addEventListener('touchmove', mousemove); 
