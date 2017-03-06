@@ -1,5 +1,6 @@
 var down_x = down_y = 0;
 var delta_x = delta_y = 0;
+var move_x = move_y = 0
 var svg_width = svg_height = 0;
 var scale = 1;
 var SCALE_MIN = 0.3;
@@ -36,7 +37,6 @@ function mouseup(event) {
 		this.removeEventListener('mousemove', mousemove);
 		this.removeEventListener('mouseup', mouseup);
 	} else {
-		alert(delta_x);
 		this.removeEventListener('touchmove', mousemove);
 		this.removeEventListener('touchend', mouseup);
 	};  
