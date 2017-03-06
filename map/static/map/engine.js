@@ -22,8 +22,8 @@ function mousemove(event) {
 		move_x = getDelta(delta_x, down_x, event.clientX);
 		move_y = getDelta(delta_y, down_y, event.clientY);
 	} else {
-		delta_x = move_x = getDelta(delta_x - move_x, down_x, event.touches.item(0).clientX);
-		delta_y = move_y = getDelta(delta_y - move_y, down_y, event.touches.item(0).clientY);
+		move_x = getDelta(delta_x, down_x, event.touches.item(0).clientX);
+		move_y = getDelta(delta_y, down_y, event.touches.item(0).clientY);
 	};
 	map_container.style.transform = 'translate(' 
 		+ move_x.toString() + 'px,' 
@@ -37,6 +37,8 @@ function mouseup(event) {
 		this.removeEventListener('mousemove', mousemove);
 		this.removeEventListener('mouseup', mouseup);
 	} else {
+		delta_x = move_x;
+		delta_y = move_y;
 		this.removeEventListener('touchmove', mousemove);
 		this.removeEventListener('touchend', mouseup);
 	};  
@@ -49,7 +51,6 @@ function mousedown(event) {
 		this.addEventListener('mousemove', mousemove); 
 		this.addEventListener('mouseup', mouseup); 
 	} else {
-		var move_x = move_y = 0
 		down_x = event.touches.item(0).clientX;
 		down_y = event.touches.item(0).clientY;
 		this.addEventListener('touchmove', mousemove); 
