@@ -22,6 +22,8 @@ function mousemove(event) {
 		move_x = getDelta(delta_x, down_x, event.clientX);
 		move_y = getDelta(delta_y, down_y, event.clientY);
 	} else {
+		event.preventDefault();
+		event.stopPropagation();
 		move_x = getDelta(delta_x, down_x, event.touches.item(0).clientX);
 		move_y = getDelta(delta_y, down_y, event.touches.item(0).clientY);
 	};
@@ -37,6 +39,8 @@ function mouseup(event) {
 		this.removeEventListener('mousemove', mousemove);
 		this.removeEventListener('mouseup', mouseup);
 	} else {
+		event.preventDefault();
+		event.stopPropagation();
 		delta_x = move_x;
 		delta_y = move_y;
 		this.removeEventListener('touchmove', mousemove);
@@ -51,6 +55,8 @@ function mousedown(event) {
 		this.addEventListener('mousemove', mousemove); 
 		this.addEventListener('mouseup', mouseup); 
 	} else {
+		event.preventDefault();
+		event.stopPropagation();
 		down_x = event.touches.item(0).clientX;
 		down_y = event.touches.item(0).clientY;
 		this.addEventListener('touchmove', mousemove); 
