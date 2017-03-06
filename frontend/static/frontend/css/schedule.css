@@ -359,7 +359,9 @@
 .mobile .liter > div, .mobile .time > div {
 	height: 100%;
 	border-right: 1px solid #dee1e3;
+	box-sizing: border-box;
     -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
 .mobile .line {

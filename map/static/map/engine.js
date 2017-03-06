@@ -1,6 +1,6 @@
 var down_x = down_y = 0;
-var delta_x = window.innerWidth / 2 * (-1);
-var delta_y = window.innerHeight / 2 * (-1);
+var delta_x = delta_y = 0;
+var svg_width = svg_height = 0;
 var scale = 1;
 var SCALE_MIN = 0.3;
 var mapDoc, map_container, zoom_field;
@@ -21,8 +21,8 @@ function mousemove(event) {
 		move_x = getDelta(delta_x, down_x, event.clientX);
 		move_y = getDelta(delta_y, down_y, event.clientY);
 	} else {
-		delta_x = move_x = getDelta(delta_x, down_x, event.touches.item(0).clientX);
-		delta_y = move_y = getDelta(delta_y, down_y, event.touches.item(0).clientY);
+		delta_x = move_x = getDelta(delta_x - move_x, down_x, event.touches.item(0).clientX);
+		delta_y = move_y = getDelta(delta_y - move_y, down_y, event.touches.item(0).clientY);
 	};
 	map_container.style.transform = 'translate(' 
 		+ move_x.toString() + 'px,' 
@@ -36,6 +36,7 @@ function mouseup(event) {
 		this.removeEventListener('mousemove', mousemove);
 		this.removeEventListener('mouseup', mouseup);
 	} else {
+		alert(delta_x);
 		this.removeEventListener('touchmove', mousemove);
 		this.removeEventListener('touchend', mouseup);
 	};  
@@ -48,6 +49,7 @@ function mousedown(event) {
 		this.addEventListener('mousemove', mousemove); 
 		this.addEventListener('mouseup', mouseup); 
 	} else {
+		var move_x = move_y = 0
 		down_x = event.touches.item(0).clientX;
 		down_y = event.touches.item(0).clientY;
 		this.addEventListener('touchmove', mousemove); 
@@ -135,6 +137,16 @@ function init_floor (map_id) {
 	mapDoc = map.contentDocument;	
 	svg_els = mapDoc.getElementsByTagName('svg');
 	svg_scheme = svg_els[0];
+	
+	bbox = svg_scheme.getBoundingClientRect();
+	if (svg_width == 0) {
+		svg_width = bbox.width;
+		svg_height = bbox.height;
+	} else {
+		svg_width = (svg_width + bbox.width) / 2;
+		svg_height = (svg_height + bbox.height) / 2;
+	};
+	
 	label_obj = document.createElement('div');
 	label_obj.className = CONST_LABEL_CLASS;
 
@@ -230,10 +242,18 @@ function btnDown(event) {
 	};
 }
 
-function putInMiddle(element) {
+function putVertMid(element) {
 	field_height = Number(document.getElementById('field').clientHeight);
 	top_px = Math.round((field_height - Number(element.clientHeight))/2 );
 	element.style.top = top_px.toString() + 'px';
+}
+
+function centerMapOnXY(x,y) {
+	delta_x = (svg_width - x) * (-1); 
+	delta_y = (svg_height - y) * (-1); 
+	map_container.style.transform = 'translate(' 
+		+ delta_x.toString() + 'px,' 
+		+ delta_y.toString() + 'px)';
 }
 
 function init() {
@@ -252,18 +272,15 @@ function init() {
 	floors[4] = init_floor('floor4');
 	adjustLabels();
 	showFloor(active_floor);
-
-	map_container.style.transform = 'translate(' 
-		+ delta_x.toString() + 'px,' 
-		+ delta_y.toString() + 'px)';
+	centerMapOnXY((svg_width + window.innerWidth)/2+80 , (svg_height + window.innerHeight)/2-270);
 
 	document.getElementById('btn_up').addEventListener('click', btnUp);
 	document.getElementById('btn_down').addEventListener('click', btnDown);
 	document.getElementById('zoom_in').addEventListener('click', zoom_in);
 	document.getElementById('zoom_out').addEventListener('click', zoom_out);
 
-	putInMiddle(document.getElementById('btns_floor'));
-	putInMiddle(document.getElementById('btns_zoom'));
+	putVertMid(document.getElementById('btns_floor'));
+	putVertMid(document.getElementById('btns_zoom'));
 
 	load_img = document.getElementById('loader');
 	load_img.parentNode.removeChild(load_img);

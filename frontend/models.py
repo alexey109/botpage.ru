@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 class Groups(models.Model):
-	gcode	= models.CharField(u'Номер группы', max_length=20)
+	gcode	= models.CharField(u'Номер группы', max_length=20, db_index=True)
 	def __unicode__(self):
 		return self.gcode 
 	class Meta:
@@ -39,9 +39,12 @@ class Users(models.Model):
 		verbose_name = u'пользователь'
 		verbose_name_plural = u'пользователи'
 		db_table = 'users'
+		index_together = [
+			["vk_id", "vk_chat"],
+		]
 	
 class Schedule(models.Model):
-	group 	= models.ForeignKey(Groups, on_delete=models.CASCADE, verbose_name=u'Группа')
+	group 	= models.ForeignKey(Groups, on_delete=models.CASCADE, verbose_name=u'Группа', db_index=True)
 	week 	= models.CharField(u'Неделя', max_length=50, blank=True, null=True)
 	day 	= models.SmallIntegerField(u'День')
 	numb 	= models.SmallIntegerField(u'Номер')
@@ -60,7 +63,7 @@ class Schedule(models.Model):
 		
 
 class UsersSchedule(models.Model):
-	user 	= models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u'Пользователь')
+	user 	= models.ForeignKey(Users, on_delete=models.CASCADE, verbose_name=u'Пользователь', db_index=True)
 	name 	= models.CharField(u'Название', max_length=100, blank=False, null=False, default='')
 	day 	= models.SmallIntegerField(u'День', null=False, default=0)
 	numb 	= models.SmallIntegerField(u'Номер', null=False, default=0)
