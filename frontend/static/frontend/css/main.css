@@ -1583,14 +1583,6 @@
 		text-align: center;
 	}
 
-		#banner .content {
-			-moz-transition: opacity 1s ease-in-out, -moz-transform 0.75s ease-in-out;
-			-webkit-transition: opacity 1s ease-in-out, -webkit-transform 0.75s ease-in-out;
-			-ms-transition: opacity 1s ease-in-out, -ms-transform 0.75s ease-in-out;
-			transition: opacity 1s ease-in-out, transform 0.75s ease-in-out;
-			opacity: 1;
-		}
-
 		#banner h1 {
 			font-size: 3em;
 			color: #25a2c3;
@@ -1655,13 +1647,6 @@
 				}
 
 		}
-
-		body.is-loading #banner .content {
-			opacity: 0;
-			-moz-transform: translateY(1em);
-			-webkit-transform: translateY(1em);
-			-ms-transform: translateY(1em);
-			transform: translateY(1em);
 		}
 
 /* Main */

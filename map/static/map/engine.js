@@ -272,15 +272,15 @@ function init() {
 	floors[0] = init_floor('floor0');
 	floors[1] = init_floor('floor1');	
 	floors[2] = init_floor('floor2');
+	floors[3] = init_floor('floor3');
+	floors[4] = init_floor('floor4');
 	
 	var endDate   = new Date();
 	var seconds = (endDate.getTime() - startDate.getTime()) / 1000;
-	if (seconds > 4) {
+	if (seconds > 3) {
 		document.getElementById('loader_subtext').style.display = 'inline';
 	};
 	
-	floors[3] = init_floor('floor3');
-	floors[4] = init_floor('floor4');
 	adjustLabels();
 	showFloor(active_floor);
 	centerMapOnXY((svg_width + window.innerWidth)/2+80 , (svg_height + window.innerHeight)/2-270);

@@ -347,6 +347,7 @@
 	display: table-cell;
 	width: 4em;
 	height: 100%;
+	border-left: 1px solid #dee1e3;
 }
 
 .mobile .events {
@@ -354,16 +355,11 @@
 	display: table-cell;
 	width: 14em;
 	height: 100%;
+	border-left: 1px solid #dee1e3;
 }
 
 .mobile .events > * {
 	margin: 1px;
-}
-
-.mobile .liter > div, .mobile .time > div {
-	height: 100%;
-	border-right: 1px solid #dee1e3;
-    padding-bottom: 0 auto;	
 }
 
 .mobile .line {

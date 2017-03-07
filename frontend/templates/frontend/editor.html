@@ -185,8 +185,8 @@ var schedule_full = {
 	<div class="day_label">{{ day_content.label }}</div>
 	{% for numb, row in day_content.content.items %}
 		<div class="numb">
-			<div class="liter"><div>{{ row.liter }}</div></div>
-			<div class="time"><div>{{ row.time }}</div></div>
+			<div class="liter">{{ row.liter }}</div>
+			<div class="time">{{ row.time }}</div>
 			<div class="events">
 			{% for event in row.events %}
 			<div id="{{ event.id }}" class="event" data-hide="{{ event.hide }}" data-isuser="{{ event.is_user }}">
