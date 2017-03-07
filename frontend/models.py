@@ -17,8 +17,8 @@ class Groups(models.Model):
 
 class Users(models.Model):
 	vk_id			= models.CharField(u'ID в VK', max_length=50, blank=False, null=False, default='')
-	vk_chat			= models.BooleanField(u'Тип диалога', default=False)
-	my_id			= models.CharField(u'ID для бота', max_length=100, blank=False, null=False, default='')
+	is_chat			= models.BooleanField(u'Чат ли?', default=False)
+	bot_id			= models.CharField(u'ID для бота', max_length=100, blank=False, null=False, default='')
 	group			= models.ForeignKey(
 						Groups, 
 						on_delete=models.PROTECT, 
@@ -32,7 +32,7 @@ class Users(models.Model):
 	notice_map		= models.BooleanField(u'Уведомление где пара', default=False)
 	
 	def __unicode__(self):
-		return self.my_id 
+		return self.vk_id 
 	
 	class Meta:
 		managed = True
@@ -40,7 +40,7 @@ class Users(models.Model):
 		verbose_name_plural = u'пользователи'
 		db_table = 'users'
 		index_together = [
-			["vk_id", "vk_chat"],
+			["vk_id", "is_chat"],
 		]
 	
 class Schedule(models.Model):

@@ -72,14 +72,14 @@ def getWeekRange(week_numb):
 def promo(request):
 	msg = ''
 	user_group = ''
-	user_id = ''
+	bot_id = ''
 	
 	auth = request.POST.get('auth', '')
 	
 	if '-' in auth:
 		user_group = auth.lower()
 	else:
-		user_id = auth
+		bot_id = auth
 		
 	if user_group:
 		try:
@@ -95,9 +95,9 @@ def promo(request):
 				msg = u'Группа ' + group.gcode.upper()
 		except:
 			msg = u'Ошибка, группа не найдена!'
-	elif user_id:
+	elif bot_id:
 		try:
-			user = Users.objects.get(my_id = user_id)
+			user = Users.objects.get(bot_id = bot_id)
 			group = user.group
 			request.session['user_id'] = user.id
 			request.session['group_id'] = group.id
@@ -197,10 +197,10 @@ def editor(request):
 					hide = True
 				break
 		if no_major:
-			my_id = str(event_basic.id) + '1'	# id start with 1 -> basic schedule table
+			bot_id = str(event_basic.id) + '1'	# id start with 1 -> basic schedule table
 			event = {
-				'id'		: my_id,
-				'id_hash'	: hash(my_id + HASH_APPEND),
+				'id'		: bot_id,
+				'id_hash'	: hash(bot_id + HASH_APPEND),
 				'name'		: event_basic.name,
 				'day'		: event_basic.day,
 				'numb'		: event_basic.numb,
@@ -213,10 +213,10 @@ def editor(request):
 			schedule_full.append(event)	
 	# add user schedule for html page
 	for event_user in schedule_user:
-		my_id = str(event_user.id) + '0'	# id start with 1 -> basic schedule table
+		bot_id = str(event_user.id) + '0'	# id start with 1 -> basic schedule table
 		event = {
-			'id'		: my_id,
-			'id_hash'	: hash(my_id + HASH_APPEND),
+			'id'		: bot_id,
+			'id_hash'	: hash(bot_id + HASH_APPEND),
 			'name'		: event_user.name,
 			'day'		: event_user.day,
 			'numb'		: event_user.numb,
