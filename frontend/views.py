@@ -87,7 +87,7 @@ def promo(request):
 			request.session['group'] = group.gcode.upper()
 			request.session['group_id'] = group.id	
 			if request.session.get('user_id', False):
-				user = Users.objects.get(id = request.session['user_id'])
+				user = Users.objects.get(id = request.session.get('user_id', -1))
 				user.group = group
 				user.save()
 				msg = u'Новая группа: ' + group.gcode.upper()

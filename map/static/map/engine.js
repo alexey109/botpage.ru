@@ -155,7 +155,7 @@ function init_floor (map_id) {
 
 	for (var i = 0; i < svg_scheme.childNodes.length; i++) {
 		if (svg_scheme.childNodes[i].id == 'layer1') {
-			window.setTimeout(createLabels(svg_scheme.childNodes[i], label_obj), 100);
+			window.setTimeout(createLabels(svg_scheme.childNodes[i], label_obj), 1000);
 			continue;
 		}
 	}
@@ -260,6 +260,7 @@ function centerMapOnXY(x,y) {
 }
 
 function init() {
+    var startDate = new Date();
 	map_container = document.getElementById('map-container');
 	zoom_field = document.getElementById('zoom-field');
 
@@ -269,8 +270,15 @@ function init() {
 	document.addEventListener('dragstart', null);
 
 	floors[0] = init_floor('floor0');
-	floors[1] = init_floor('floor1');
+	floors[1] = init_floor('floor1');	
 	floors[2] = init_floor('floor2');
+	
+	var endDate   = new Date();
+	var seconds = (endDate.getTime() - startDate.getTime()) / 1000;
+	if (seconds > 4) {
+		document.getElementById('loader_subtext').style.display = 'inline';
+	};
+	
 	floors[3] = init_floor('floor3');
 	floors[4] = init_floor('floor4');
 	adjustLabels();
