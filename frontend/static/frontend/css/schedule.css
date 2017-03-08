@@ -315,7 +315,6 @@
 }
 
 .mobile .day {
-	display: table;
 	margin-bottom: 2em;
 	height: 100%;
 }
@@ -331,20 +330,17 @@
 
 .mobile .numb {
 	border: 1px solid #dee1e3;
-	display: table-row;
 	height: 100%;
 }
 
 .mobile .liter {
 	float: left;
-	display: table-cell;
 	width: 2em;
 	height: 100%;
 }
 
 .mobile .time {
 	float: left;
-	display: table-cell;
 	width: 4em;
 	height: 100%;
 	border-left: 1px solid #dee1e3;
@@ -352,14 +348,9 @@
 
 .mobile .events {
 	float: left;
-	display: table-cell;
 	width: 14em;
 	height: 100%;
 	border-left: 1px solid #dee1e3;
-}
-
-.mobile .events > * {
-	margin: 1px;
 }
 
 .mobile .line {

@@ -181,13 +181,13 @@ var schedule_full = {
 
 <div class="mobile">
 {% for day, day_content in mobile_content.items %}
-	<div class="day">
+	<table class="day">
 	<div class="day_label">{{ day_content.label }}</div>
 	{% for numb, row in day_content.content.items %}
-		<div class="numb">
-			<div class="liter">{{ row.liter }}</div>
-			<div class="time">{{ row.time }}</div>
-			<div class="events">
+		<tr class="numb">
+			<td class="liter">{{ row.liter }}</td>
+			<td class="time">{{ row.time }}</td>
+			<td class="events">
 			{% for event in row.events %}
 			<div id="{{ event.id }}" class="event" data-hide="{{ event.hide }}" data-isuser="{{ event.is_user }}">
 				{% if mode.user %}
@@ -208,10 +208,10 @@ var schedule_full = {
 			{% if mode.user %}
 				<div class="new_event" data-day="{{ day }}" data-numb="{{ numb }}">+</div>
 			{% endif %}
-			</div>
-		</div>
+			</td>
+		</tr>
 	{% endfor %}
-	</div>
+	</table>
 {% endfor %}
 </div>
 
