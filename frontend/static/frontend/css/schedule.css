@@ -313,14 +313,18 @@
 	text-align: center;
 }
 
+
 .mobile .day {
 	margin-bottom: 2em;
 	height: 100%;
+}
+
+.mobile * {	
 	border-collapse: collapse;
 }
 
 .mobile tr {
-	border: none;
+	border: solid 1px #dee1e3;
 }
 
 .mobile .day_label {
