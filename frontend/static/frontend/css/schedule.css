@@ -311,12 +311,16 @@
 	padding: 1em;
 	margin: 0 auto;
 	text-align: center;
-	border-collapse: collapse;
 }
 
 .mobile .day {
 	margin-bottom: 2em;
 	height: 100%;
+	border-collapse: collapse;
+}
+
+.mobile tr {
+	border: none;
 }
 
 .mobile .day_label {
@@ -329,7 +333,6 @@
 }
 
 .mobile .numb {
-	border: 1px solid #dee1e3;
 	height: 100%;
 }
 
@@ -343,14 +346,12 @@
 	float: left;
 	width: 4em;
 	height: 100%;
-	border-left: 1px solid #dee1e3;
 }
 
 .mobile .events {
 	float: left;
 	width: 14em;
 	height: 100%;
-	border-left: 1px solid #dee1e3;
 }
 
 .mobile .line {
