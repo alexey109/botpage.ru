@@ -30,6 +30,8 @@ class Users(models.Model):
 	notice_tommorow	= models.BooleanField(u'Уведомление завтра', default=False)
 	notice_week		= models.BooleanField(u'Уведомление неделю', default=False)
 	notice_map		= models.BooleanField(u'Уведомление где пара', default=False)
+	send_time		= models.DateTimeField(null=True, blank=True)
+	notice_zerohour	= models.DateTimeField(null=True, blank=True)
 	
 	def __unicode__(self):
 		return self.vk_id 
