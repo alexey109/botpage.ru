@@ -8,7 +8,7 @@
 						<h4 id="title">Введите ID или группу</h4>
 						<form method="post" action="{% url 'promo' %}">
 							{% csrf_token %}
-							<input autofocus type="text" name="auth" pattern="^[A-Za-zА-Яа-я0-9\-]+$" value="" placeholder="ИКБО-04-15" />
+							<input autofocus type="text" name="auth" pattern="^[A-Za-zА-Яа-я0-9\-]+$" value="" placeholder="ИКБО-04-15" value="{{ user_id }}" />
 							<span>{{ msg }}<span>
 							<input type="submit" value="войти" />
 						</form>
