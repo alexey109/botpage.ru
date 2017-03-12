@@ -99,17 +99,23 @@ def promo(request):
 		try:
 			user = Users.objects.get(bot_id = bot_id)
 			group = user.group
-			request.session['user_id'] = user.id
+			request.session['user_id'] 	= user.id
+			request.session['bot_id'] 	= bot_id
 			request.session['group_id'] = group.id
-			request.session['group'] = group.gcode.upper()		
+			request.session['group'] 	= group.gcode.upper()		
 			msg = u'Вы вошли! Группа ' + group.gcode.upper()
 		except Exception as e:
 			msg = u'Ошибка, неверный ID!'
-	
+
+	if request.session.get('bot_id', False):
+		form_value = request.session['bot_id']
+	else:
+		form_value = request.session.get('group', '')
 	context = {
 		'msg' 		: msg,
 		'group' 	: request.session.get('group', ''),
-		'user_id'	: request.session.get('user_id', '')
+		'user_id'	: request.session.get('user_id', ''),
+		'form_value': form_value,
 	}
 	template = loader.get_template('frontend/promo.html')
 	return HttpResponse(template.render(context, request))
