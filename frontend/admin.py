@@ -14,7 +14,17 @@ class GroupsAdmin(admin.ModelAdmin):
 	search_fields = ['gcode']
 		
 class UsersAdmin(admin.ModelAdmin):
-	list_display = ('vk_id', 'is_chat','group', 'notice_today', 'notice_tommorow','notice_week', 'notice_map')
+	list_display = (
+		'vk_id', 
+		'is_chat',
+		'group', 
+		'notice_today', 
+		'notice_tommorow',
+		'notice_week', 
+		'notice_map', 
+		'send_time', 
+		'notice_zerohour'
+	)
 	search_fields = ['vk_id', 'bot_id']
 		
 class UsersScheduleAdmin(admin.ModelAdmin):

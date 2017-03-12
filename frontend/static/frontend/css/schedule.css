@@ -32,6 +32,15 @@
 	font-size: 2em;
 }
 
+.msg_for_user {
+	text-align: center;
+	padding-bottom: 1em;
+}
+
+.msg_for_user a {	
+	text-decoration: none;
+}
+
 .schedule {
 	min-width: 90em;
 }

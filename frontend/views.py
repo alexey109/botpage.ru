@@ -282,6 +282,7 @@ def editor(request):
 		'group' 		: request.session.get('group', ''),
 		'mode'			: mode, 
 		'view'			: view,
+		'wrong_user'	: wrong_user,
 		'user_notice'	: user_notice,
 	}
 	template = loader.get_template('frontend/editor.html')
@@ -424,6 +425,7 @@ def switcher(request, switcher_id):
 			session_user.save()
 	except Exception as e:
 		return HttpResponse(str(e))
+		
 	return HttpResponse(switcher_id)	
 	
 	

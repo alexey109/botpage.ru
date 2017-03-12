@@ -25,6 +25,11 @@ var schedule_full = {
 <section id="main" class="wrapper">
 <div class="inner">
 <div class="table-wrapper">
+{% if wrong_user %}
+<div class="msg_for_user">
+	Для редактирования расписания и включения уведомлений укажите ваш ID <a href="{% url "promo" %}">здесь</a>
+</div>
+{% endif %}
 <div class="toolbar">
 	<div>
 		<span class="title">РЕЖИМ</span>
