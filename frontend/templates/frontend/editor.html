@@ -36,8 +36,8 @@ var schedule_full = {
 		<table class="panel mode">
 		<tbody>
 			<tr>
-				<td id="mode_base" class="{% if mode.base %}panel_on{% else %}panel_off{% endif %}">официальное расписание</td>
-				<td id="mode_user" class="{% if mode.user %}panel_on{% else %}panel_off{% endif %}">мое расписание</td>
+				<td title="Расписание без изменений" id="mode_base" class="{% if mode.base %}panel_on{% else %}panel_off{% endif %}">официальное расписание</td>
+				<td title="В этом режиме можно редактировать расписание" id="mode_user" class="{% if mode.user %}panel_on{% else %}panel_off{% endif %}">мое расписание</td>
 			</tr>
 		</tbody>
 		</table>
@@ -54,14 +54,14 @@ var schedule_full = {
 		</table>
 	</div>
 	<div>
-		<span class="title">УВЕДОМЛЕНИЯ</span>
+		<span title="Все уведомления приходят до 7 утра" class="title">УВЕДОМЛЕНИЯ</span>
 		<table class="panel notifications">
 		<tbody>
 			<tr>
-				<td id="notice_today" class="{% if user_notice.today %}panel_on{% else %}panel_off{% endif %}">Пары сегодня</td>
-				<td id="notice_tomorrow" class="{% if user_notice.tomorrow %}panel_on{% else %}panel_off{% endif %}">Пары завтра</td>
-				<td id="notice_week" class="{% if user_notice.week %}panel_on{% else %}panel_off{% endif %}">На неделю</td>
-				<td id="notice_map" class="{% if user_notice.map %}panel_on{% else %}panel_off{% endif %}">Первая пара</td>
+				<td title="Пары на день (пн-сб)" id="notice_today" class="{% if user_notice.today %}panel_on{% else %}panel_off{% endif %}">Пары сегодня</td>
+				<td title="Пары на следующий день (пн-сб)" id="notice_tomorrow" class="{% if user_notice.tomorrow %}panel_on{% else %}panel_off{% endif %}">Пары завтра</td>
+				<td title="Пары на неделю (только в воскресение)" id="notice_week" class="{% if user_notice.week %}panel_on{% else %}panel_off{% endif %}">На неделю</td>
+				<td title="Схема этажа где находится первая за день пара (пн-сб)" id="notice_map" class="{% if user_notice.map %}panel_on{% else %}panel_off{% endif %}">Первая пара</td>
 			</tr>
 		</tbody>
 		</table>
@@ -78,13 +78,13 @@ var schedule_full = {
 		<input type="hidden" name="numb" id="numb" value=""/>
 		<input type="text" pattern="^[A-Za-zА-Яа-я0-9\-\.\s]+$" name="name" id="name" value="" placeholder="предмет" />
 		<input type="text" pattern="^[A-Za-zА-Яа-я0-9\-\.\s]*$" name="teacher" id="teacher" value="" placeholder="преподаватель" />
-		<input type="text" pattern="^[0-9I\s\,]*$" name="week" id="week" value="" placeholder="недели ('I', 'II', '2,4')" />
+		<input title="Если пара есть всегда, то оставьте поле пустым" type="text" pattern="^[0-9I\s\,]*$" name="week" id="week" value="" placeholder="недели ('I', 'II', '2,4')" />
 		<input type="text" pattern="^[A-Za-zА-Яа-я0-9\-]*$" name="room" id="room" value="" placeholder="аудитория" />
 		<div id="input_hide">
 			<input type="checkbox" name="hide" id="hide" checked="">
 			<label for="hide" id="hide_label">не показывать</label>
 		</div>
-		<div id="input_delete">
+		<div title="При изменении пары для вас была создана копия, которую можно удалить " id="input_delete">
 			<input type="checkbox" name="delete" id="delete" checked="">
 			<label for="delete">удалить</label>
 		</div>
