@@ -17,7 +17,7 @@ class Groups(models.Model):
 
 class Users(models.Model):
 	vk_id			= models.CharField(u'ID в VK', max_length=50, blank=False, null=False, default='')
-	is_chat			= models.BooleanField(u'Чат ли?', default=False)
+	is_chat			= models.BooleanField(u'Чат', default=False)
 	bot_id			= models.CharField(u'ID для бота', max_length=100, blank=False, null=False, default='')
 	group			= models.ForeignKey(
 						Groups, 
@@ -26,12 +26,13 @@ class Users(models.Model):
 						null=False, 
 						default=''
 					)
-	notice_today	= models.BooleanField(u'Уведомление сегодня', default=False)
-	notice_tommorow	= models.BooleanField(u'Уведомление завтра', default=False)
-	notice_week		= models.BooleanField(u'Уведомление неделю', default=False)
-	notice_map		= models.BooleanField(u'Уведомление где пара', default=False)
-	send_time		= models.DateTimeField(null=True, blank=True)
-	notice_zerohour	= models.DateTimeField(null=True, blank=True)
+	notice_today	= models.BooleanField(u'"сегодня"', default=False)
+	notice_tommorow	= models.BooleanField(u'"завтра"', default=False)
+	notice_week		= models.BooleanField(u'"на неделю"', default=False)
+	notice_map		= models.BooleanField(u'"где пара"', default=False)
+	send_time		= models.DateTimeField(u'Время уведомл.', blank=True, null=True)
+	notice_zerohour	= models.DateTimeField(u'Напомиание 0 часа', blank=True, null=True)
+	bot_activity	= models.DateTimeField(u'Активность у бота', blank=True, null=True)
 	
 	def __unicode__(self):
 		return self.vk_id 

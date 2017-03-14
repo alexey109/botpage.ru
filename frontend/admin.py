@@ -23,7 +23,8 @@ class UsersAdmin(admin.ModelAdmin):
 		'notice_week', 
 		'notice_map', 
 		'send_time', 
-		'notice_zerohour'
+		'notice_zerohour',
+		'bot_activity'
 	)
 	search_fields = ['vk_id', 'bot_id']
 		
