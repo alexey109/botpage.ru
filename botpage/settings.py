@@ -54,7 +54,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'TimetableMIREA.urls'
+ROOT_URLCONF = 'botpage.urls'
 
 TEMPLATES = [
     {
@@ -72,7 +72,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'TimetableMIREA.wsgi.application'
+WSGI_APPLICATION = 'botpage.wsgi.application'
 
 
 # Database

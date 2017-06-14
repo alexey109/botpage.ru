@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin934/
+Disallow: /weeks/*
+
+Sitemap: http://botpage.ru/static/sitemap.xml
+Host: http://site.ru
