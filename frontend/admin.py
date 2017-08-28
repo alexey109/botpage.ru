@@ -4,6 +4,7 @@ from .models import Schedule
 from .models import UsersSchedule
 from .models import Groups
 from .models import Users
+from .models import Scheme
 
 
 class ScheduleAdmin(admin.ModelAdmin):
@@ -41,7 +42,20 @@ class UsersScheduleAdmin(admin.ModelAdmin):
     list_filter = ['user']
 
 
+class SchemeAdmin(admin.ModelAdmin):
+    list_display = (
+        'photo_id',
+        'old_photo_id',
+        'name',
+        'name_ru',
+        'rooms',
+        'desc'
+    )
+
 admin.site.register(Groups, GroupsAdmin)
 admin.site.register(Schedule, ScheduleAdmin)
 admin.site.register(Users, UsersAdmin)
 admin.site.register(UsersSchedule, UsersScheduleAdmin)
+admin.site.register(Scheme, SchemeAdmin)
+
+

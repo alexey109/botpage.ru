@@ -104,3 +104,21 @@ class UsersSchedule(models.Model):
         verbose_name = u'расписание пользователей'
         verbose_name_plural = u'расписания пользователей'
         db_table = 'users_schedule'
+
+
+class Scheme(models.Model):
+    photo_id = models.CharField(u'ID фото в альбоме', max_length=50)
+    old_photo_id = models.CharField(u'ID фото для старого клиента', max_length=50)
+    name = models.CharField(u'Название', max_length=100)
+    name_ru = models.CharField(u'Название рус.', max_length=50)
+    rooms = models.CharField(u'аудитории', max_length=200)
+    desc = models.CharField(u'подсказка', max_length=100)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        managed = True
+        verbose_name = u'схема'
+        verbose_name_plural = u'схемы'
+        db_table = 'schemes'
