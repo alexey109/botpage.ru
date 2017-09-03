@@ -62,13 +62,25 @@ def isThatWeek(native_week, base_week):
 
 
 def getWeekRange(week_numb):
-    week_numb = week_numb + dt.date(2017, 2, 6).isocalendar()[1] - 1
+    week_numb = week_numb + dt.date(2017, 9, 4).isocalendar()[1] - 1
     date = dt.datetime.strptime("2017-{}-0".format(week_numb),
                                 "%Y-%W-%w")
     start = (date - dt.timedelta(days=6)).strftime('%d.%m')
     end = date.strftime('%d.%m')
     return "{} - {}".format(start, end)
 
+
+def login(request, vkid=''):
+    try:
+        user = Users.objects.get(vk_id=vkid)
+        group = user.group
+        request.session['user_id'] = user.id
+        request.session['bot_id'] = user.bot_id
+        request.session['group_id'] = group.id
+        request.session['group'] = group.gcode.upper()
+    except:
+        pass
+    return HttpResponse()
 
 def promo(request):
     msg = ''
@@ -92,11 +104,8 @@ def promo(request):
                     id=request.session.get('user_id', -1))
                 user.group = group
                 user.save()
-                msg = u'Новая группа: ' + group.gcode.upper()
-            else:
-                msg = u'Группа ' + group.gcode.upper()
         except:
-            msg = u'Ошибка, группа не найдена!'
+            msg = u'Группа не найдена!'
     elif bot_id:
         try:
             user = Users.objects.get(bot_id=bot_id)
@@ -105,14 +114,10 @@ def promo(request):
             request.session['bot_id'] = bot_id
             request.session['group_id'] = group.id
             request.session['group'] = group.gcode.upper()
-            msg = u'Вы вошли! Группа ' + group.gcode.upper()
         except Exception as e:
             msg = u'Ошибка, неверный ID!'
 
-    if request.session.get('bot_id', False):
-        form_value = request.session['bot_id']
-    else:
-        form_value = request.session.get('group', '')
+    form_value = request.session.get('group', '')
     context = {
         'msg': msg,
         'group': request.session.get('group', ''),
@@ -309,18 +314,17 @@ def editor(request):
 
 def schedule(request, page_week):
     # prepare permanent data
-    if not page_week or int(page_week) > 16 or int(page_week) < 1:
-        dat = dt.datetime.now()
+    if not page_week or int(page_week) > 17 or int(page_week) < 1:
         page_week = dt.datetime.now().isocalendar()[1] - \
-                    dt.date(2017, 2, 6).isocalendar()[1] + 1
+                    dt.date(2017, 9, 1).isocalendar()[1] + 1
     page_week = int(page_week)
 
     # generate week numbers for week panel at top of page
     week_panel = {}
-    for i in range(1, 17):
+    for i in range(2, 18):
         week_panel[i] = {
             'status': i == page_week,
-            'range': getWeekRange(i),
+            'range': getWeekRange(i-1),
         }
     # generate empty schedule table with "event number - event day" element
     event_rows = {}

@@ -7,13 +7,14 @@
 -->
 <html>
 	<head>
-		<title>РасписаниеМИРЭА</title>
+		<title>Расписание МТУ</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="yandex-verification" content="588e8fdf60602ecb" />
 		<link rel="stylesheet" href="{% static "frontend/css/main.css" %}" />
 		<link rel="stylesheet" href="{% static "frontend/css/schedule.css" %}" />
-		<link rel="icon" href="{% static "frontend/images/favicon.png" %}" type="image/x-icon">
+		<link rel="icon" href="{% static "frontend/images/favicon.png" %}" type="image/png">
+		<script type="text/javascript" src="//vk.com/js/api/openapi.js?146"></script>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
     (function (d, w, c) {
@@ -43,6 +44,13 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/43107059" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+
+<!-- VK Widget -->
+<div id="vk_community_messages"></div>
+<script type="text/javascript">
+VK.Widgets.CommunityMessages("vk_community_messages", 144300510, {disableExpandChatSound: "1",disableNewMessagesSound: "1",tooltipButtonText: "Напиши сюда"});
+
+</script>
 	</head>
 	<body>
 		<!-- Header -->
@@ -54,9 +62,9 @@
 				
 				<ul class="actions align-center onbig">
 					<li><img src="{% static "frontend/images/logo.png" %}" id="logo_img" /></li>
-					<li><a href="{% url "promo" %}" class="logo">Расписание МИРЭА<sup>beta</sup></a></li>
+					<li><a href="{% url "promo" %}" class="logo">Расписание МТУ</a></li>
 				</ul>	
-				<a href="{% url "promo" %}" class="onsmall logo">Расписание МИРЭА<sup>beta</sup></a>
+				<a href="{% url "promo" %}" class="onsmall logo">Расписание МТУ</a>
 
 				<nav class="right">
 					{% if group %}
@@ -78,7 +86,7 @@
 						<a href="{% url "editor" %}"><i class="fa fa-edit"></i>Редактор</a>
 					</li>
 					<li>
-						<a href="{% url "map_index" %}"><i class="fa fa-map-o"></i>Карта</a>
+						<a href="{% url "map_index" %}"><i class="fa fa-map-o"></i>Схема МИРЭА</a>
 					</li>
 					<li>
 						<a href="{% url "help" %}"><i class="fa fa-info"></i>Справка</a>
