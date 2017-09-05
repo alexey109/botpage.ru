@@ -1,10 +1,6 @@
 from django.contrib import admin
 
-from .models import Schedule
-from .models import UsersSchedule
-from .models import Groups
-from .models import Users
-from .models import Scheme
+from .models import *
 
 
 class ScheduleAdmin(admin.ModelAdmin):
@@ -52,10 +48,20 @@ class SchemeAdmin(admin.ModelAdmin):
         'desc'
     )
 
+
+class HistoryAdmin(admin.ModelAdmin):
+    list_display = (
+        'group',
+        'date',
+        'old_fields',
+        'new_fields'
+    )
+
 admin.site.register(Groups, GroupsAdmin)
 admin.site.register(Schedule, ScheduleAdmin)
 admin.site.register(Users, UsersAdmin)
 admin.site.register(UsersSchedule, UsersScheduleAdmin)
 admin.site.register(Scheme, SchemeAdmin)
+admin.site.register(History, HistoryAdmin)
 
 

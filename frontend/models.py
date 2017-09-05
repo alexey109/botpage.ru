@@ -122,3 +122,19 @@ class Scheme(models.Model):
         verbose_name = u'схема'
         verbose_name_plural = u'схемы'
         db_table = 'schemes'
+
+
+class History(models.Model):
+    date = models.DateField(u'дата обновления')
+    old_fields = models.CharField(u'было', max_length=1000)
+    new_fields =models.CharField(u'стало', max_length=1000)
+    group = models.ForeignKey(Groups, on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return "{}:{}".format(self.group, self.date)
+
+    class Meta:
+        managed = True
+        verbose_name = u'изменение'
+        verbose_name_plural = u'изменения'
+        db_table = 'history'
