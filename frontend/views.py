@@ -62,8 +62,8 @@ def isThatWeek(native_week, base_week):
 
 
 def getWeekRange(week_numb):
-    week_numb = week_numb + dt.date(2017, 9, 4).isocalendar()[1] - 1
-    date = dt.datetime.strptime("2017-{}-0".format(week_numb),
+    week_numb = week_numb + dt.date(2018, 2, 9).isocalendar()[1] - 1
+    date = dt.datetime.strptime("2018-{}-0".format(week_numb),
                                 "%Y-%W-%w")
     start = (date - dt.timedelta(days=6)).strftime('%d.%m')
     end = date.strftime('%d.%m')
@@ -316,7 +316,7 @@ def schedule(request, page_week):
     # prepare permanent data
     if not page_week or int(page_week) > 17 or int(page_week) < 1:
         page_week = dt.datetime.now().isocalendar()[1] - \
-                    dt.date(2017, 9, 1).isocalendar()[1] + 1
+                    dt.date(2018, 2, 9).isocalendar()[1] + 1
     page_week = int(page_week)
 
     # generate week numbers for week panel at top of page
