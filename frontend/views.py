@@ -316,7 +316,7 @@ def schedule(request, page_week):
     # prepare permanent data
     if not page_week or int(page_week) > 17 or int(page_week) < 1:
         page_week = dt.datetime.now().isocalendar()[1] - \
-                    dt.date(2018, 2, 9).isocalendar()[1] + 1
+                    dt.date(2018, 2, 9).isocalendar()[1]
     page_week = int(page_week)
 
     # generate week numbers for week panel at top of page
