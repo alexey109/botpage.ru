@@ -62,8 +62,8 @@ def isThatWeek(native_week, base_week):
 
 
 def getWeekRange(week_numb):
-    week_numb = week_numb + dt.date(2018, 2, 12).isocalendar()[1] - 1
-    date = dt.datetime.strptime("2018-{}-0".format(week_numb),
+    week_numb = week_numb + dt.date(2019, 9, 2).isocalendar()[1] - 1
+    date = dt.datetime.strptime("2019-{}-0".format(week_numb),
                                 "%Y-%W-%w")
     start = (date - dt.timedelta(days=6)).strftime('%d.%m')
     end = date.strftime('%d.%m')
