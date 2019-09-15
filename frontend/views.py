@@ -29,10 +29,10 @@ DAY_NAMES = [
 LEFT_COLS = {
     1: ['I', '9:00 10:30'],
     2: ['II', '10:40 12:10'],
-    3: ['III', '13:00 14:30'],
-    4: ['IV', '14:40 16:10'],
-    5: ['V', '16:20 17:50'],
-    6: ['VI', '18:00 19:30'],
+    3: ['III', '13:10 14:40'],
+    4: ['IV', '14:50 16:20'],
+    5: ['V', '16:30 18:00'],
+    6: ['VI', '18:10 19:40'],
 }
 
 
@@ -316,12 +316,12 @@ def schedule(request, page_week):
     # prepare permanent data
     if not page_week or int(page_week) > 17 or int(page_week) < 1:
         page_week = dt.datetime.now().isocalendar()[1] - \
-                    dt.date(2018, 2, 9).isocalendar()[1] + 1
+                    dt.date(2019, 9, 2).isocalendar()[1] + 1
     page_week = int(page_week)
 
     # generate week numbers for week panel at top of page
     week_panel = {}
-    for i in range(2, 18):
+    for i in range(1, 17):
         week_panel[i] = {
             'status': i == page_week,
             'range': getWeekRange(i-1),
